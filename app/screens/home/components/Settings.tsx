@@ -1,15 +1,22 @@
 import * as React from "react";
-import { View, Text, Button } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
 import { getAuth, signOut } from "firebase/auth";
-import { NavigationProp } from "@react-navigation/native";
 
 const auth = getAuth();
 
-type Props = {
-  navigation: NavigationProp<Record<string, object>>;
-};
+export default function Settings({ navigation, route }: any) {
+  const { userData } = route.params;
 
-export default function Settings({ navigation }: Props) {
+  if (!userData) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text
@@ -30,6 +37,17 @@ export default function Settings({ navigation }: Props) {
             })
         }
       />
+      <Text style={styles.text}>ID: {userData.id}</Text>
+      <Text style={styles.text}>Email: {userData.email}</Text>
+      <Text style={styles.text}>First Name: {userData.firstName}</Text>
+      <Text style={styles.text}>Last Name: {userData.lastName}</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 16,
+    marginBottom: 8,
+  },
+});

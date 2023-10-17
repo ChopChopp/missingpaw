@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -11,6 +12,7 @@ import { getAuth } from "firebase/auth";
 const firebaseConfig = {
   apiKey: "AIzaSyB0CtLKz2yZ4x4heTtHKQ0ns3nX-AxiEaw",
   authDomain: "simao-project-pioneer.firebaseapp.com",
+  databaseURL: "https://simao-project-pioneer-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "simao-project-pioneer",
   storageBucket: "simao-project-pioneer.appspot.com",
   messagingSenderId: "832432520804",
@@ -21,3 +23,4 @@ const firebaseConfig = {
 // Initialize Firebase
 export const FIREBASE_APP = initializeApp(firebaseConfig, );
 export const FIREBASE_AUTH = getAuth(FIREBASE_APP);
+export const FIREBASE_DATABASE = getDatabase();

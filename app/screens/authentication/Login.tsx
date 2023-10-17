@@ -24,6 +24,7 @@ const Login = () => {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+
       alert("Logged in successfully!");
     } catch (error: any) {
       alert("Sign in  failed: " + error);
