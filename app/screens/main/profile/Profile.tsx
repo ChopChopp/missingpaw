@@ -10,7 +10,7 @@ import { getAuth, signOut } from "firebase/auth";
 
 const auth = getAuth();
 
-export default function Settings({ navigation, route }: any) {
+export default function Profile({ navigation, route }: any) {
   const { userData } = route.params;
 
   if (!userData) {

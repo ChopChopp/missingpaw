@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FIREBASE_AUTH } from "../../../FirebaseConfig";
+import { FIREBASE_AUTH } from "../../../../FirebaseConfig";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { signInWithEmailAndPassword } from "firebase/auth";
 

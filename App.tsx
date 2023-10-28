@@ -4,7 +4,7 @@ import { User, onAuthStateChanged } from "firebase/auth";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { FIREBASE_AUTH, FIREBASE_DATABASE } from "./FirebaseConfig";
-import { MainContainer } from "./app/screens/home/MainContainer";
+import { MainContainer } from "./app/screens/main/MainContainer";
 import { get, ref } from "firebase/database";
 
 const Stack = createNativeStackNavigator();

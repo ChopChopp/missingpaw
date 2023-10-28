@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 import { StyleSheet, Button, SafeAreaView, Text } from "react-native";
-import Login from "./Login";
-import Register from "./Register";
+import Login from "./login/Login";
+import Register from "./register/Register";
 
 const Authentication = () => {
   const [showRegister, setShowRegister] = useState(true);
