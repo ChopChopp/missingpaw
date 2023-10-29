@@ -4,7 +4,7 @@ import { StyleSheet, Button, SafeAreaView, Text } from "react-native";
 import Login from "./login/Login";
 import Register from "./register/Register";
 
-const Authentication = () => {
+const Authentication = ({}: any) => {
   const [showRegister, setShowRegister] = useState(true);
 
   return (
