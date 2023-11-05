@@ -5,14 +5,3 @@ defaultConfig.resolver.assetExts.push('cjs');
 
 module.exports = defaultConfig;
 
-// module.exports = {
-//   resolver: {
-//     sourceExts: [
-//       'jsx',
-//       'js',
-//       'json',
-//       'ts',
-//       'tsx'
-//     ],
-//   }
-// };

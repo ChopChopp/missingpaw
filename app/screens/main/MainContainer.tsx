@@ -12,15 +12,13 @@ const settingsName = "Settings";
 const Tab = createBottomTabNavigator();
 
 export const MainContainer = ({route}: any) => {
-    // console.log(route.params)
     const {userData} = route.params;
     return (
         <Tab.Navigator
             initialRouteName={homeName}
             screenOptions={({route}) => ({
-                tabBarIcon: ({
-                                 focused,
-                             }: {
+                headerShown: false,
+                tabBarIcon: ({focused}: {
                     focused: boolean;
                     color: string;
                     size: number;
@@ -42,7 +40,7 @@ export const MainContainer = ({route}: any) => {
             })}
         >
             <Tab.Screen name={homeName} key={homeName}>
-                {(props) => <Home {...props} />}
+                {(props) => <Home/>}
             </Tab.Screen>
             <Tab.Screen name={settingsName} key={settingsName} initialParams={{userData: userData}}>
                 {(props) => <Profile {...props} />}

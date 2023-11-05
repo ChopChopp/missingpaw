@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Authentication from "./app/screens/authentication/Authentication";
 import {User, onAuthStateChanged} from "firebase/auth";
-import {NavigationContainer} from "@react-navigation/native";
+import {DefaultTheme, NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {FIREBASE_AUTH, FIREBASE_DATABASE} from "./FirebaseConfig";
 import {MainContainer} from "./app/screens/main/MainContainer";
@@ -10,11 +10,17 @@ import {get, ref} from "firebase/database";
 const Stack = createNativeStackNavigator();
 const InsideStack = createNativeStackNavigator();
 
-// const InsideLayout = React.memo(({ userData }): { userData: Object | null }) {
+const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        background: "#8f8f8f",
+    },
+}
 
 const InsideLayout = ({userData}: any) => {
     return (
-        <InsideStack.Navigator>
+        <InsideStack.Navigator screenOptions={{ headerShown: false}}>
             <InsideStack.Screen
                 name="Main"
                 initialParams={{userData: userData}}
@@ -56,8 +62,8 @@ const App = () => {
     }, []);
 
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Authentication">
+        <NavigationContainer theme={MyTheme}>
+            <Stack.Navigator initialRouteName="Authentication" screenOptions={{ headerShown: false,}}>
                 {user && userData ? (
                     <Stack.Screen
                         name="Home"
