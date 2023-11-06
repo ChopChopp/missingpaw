@@ -6,17 +6,14 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {FIREBASE_AUTH, FIREBASE_DATABASE} from "./FirebaseConfig";
 import {MainContainer} from "./app/screens/main/MainContainer";
 import {get, ref} from "firebase/database";
+import {DarkTheme, LightTheme} from "./app/helper/theme/Theme";
 
 const Stack = createNativeStackNavigator();
 const InsideStack = createNativeStackNavigator();
 
-const MyTheme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        background: "#8f8f8f",
-    },
-}
+import { Appearance } from 'react-native';
+const colorScheme = Appearance.getColorScheme();
+const theme = colorScheme === 'dark' ? DarkTheme : LightTheme;
 
 const InsideLayout = ({userData}: any) => {
     return (
@@ -62,7 +59,7 @@ const App = () => {
     }, []);
 
     return (
-        <NavigationContainer theme={MyTheme}>
+        <NavigationContainer theme={theme}>
             <Stack.Navigator initialRouteName="Authentication" screenOptions={{ headerShown: false,}}>
                 {user && userData ? (
                     <Stack.Screen

@@ -4,7 +4,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Home from "./home/Home";
 import Profile from "./profile/Profile";
-import {host} from "@expo/webpack-config/webpack/env/defaults";
 
 const homeName = "Home";
 const settingsName = "Settings";

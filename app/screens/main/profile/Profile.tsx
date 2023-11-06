@@ -4,25 +4,42 @@ import {
     Text,
     Button,
     ActivityIndicator,
-    StyleSheet,
+    StyleSheet, useColorScheme, Appearance,
 } from "react-native";
 import {getAuth, signOut} from "firebase/auth";
+import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 
 const auth = getAuth();
 
 export default function Profile({navigation, route}: any) {
+    const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
     const {userData} = route.params;
 
     if (!userData) {
         return <ActivityIndicator size="large" color="#0000ff"/>;
     }
 
+    const styles = StyleSheet.create({
+        text: {
+            fontSize: 16,
+            marginBottom: 8,
+            color: textColor
+        },
+        title: {
+            fontSize: 26,
+            fontWeight: "bold",
+            color: textColor
+        }
+
+    });
+
     return (
         <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
             <Text
                 onPress={() => navigation.navigate("Home" as never)}
-                style={{fontSize: 26, fontWeight: "bold"}}
+                style={styles.title}
             >
+                从上图e拉走他😎
                 Settings
             </Text>
             <Button
@@ -45,9 +62,4 @@ export default function Profile({navigation, route}: any) {
     );
 }
 
-const styles = StyleSheet.create({
-    text: {
-        fontSize: 16,
-        marginBottom: 8,
-    },
-});
+
