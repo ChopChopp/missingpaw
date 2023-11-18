@@ -33,13 +33,16 @@ export const MainContainer = ({route}: any) => {
                             name={iconName || ""}
                             size={focused ? 25 : 20}
                             color={focused ? "#5f7ae3" : "grey"}
+                            text-color={"grey"}
                         />
                     );
                 },
+                tabBarActiveTintColor: '#5f7ae3',
+                tabBarInactiveTintColor: 'grey'
             })}
         >
             <Tab.Screen name={homeName} key={homeName}>
-                {(props) => <Home/>}
+                {() => <Home/>}
             </Tab.Screen>
             <Tab.Screen name={settingsName} key={settingsName} initialParams={{userData: userData}}>
                 {(props) => <Profile {...props} />}
