@@ -4,7 +4,7 @@ import {
     Text,
     Button,
     ActivityIndicator,
-    StyleSheet, useColorScheme, Appearance,
+    StyleSheet, useColorScheme,
 } from "react-native";
 import {getAuth, signOut} from "firebase/auth";
 import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
