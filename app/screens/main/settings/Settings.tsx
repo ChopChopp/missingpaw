@@ -11,7 +11,7 @@ import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 
 const auth = getAuth();
 
-export default function Profile({navigation, route}: any) {
+export default function Settings({navigation, route}: any) {
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
     const {userData} = route.params;
 
@@ -30,7 +30,6 @@ export default function Profile({navigation, route}: any) {
             fontWeight: "bold",
             color: textColor
         }
-
     });
 
     return (

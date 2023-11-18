@@ -3,7 +3,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Home from "./home/Home";
-import Profile from "./profile/Profile";
+import Settings from "./settings/Settings";
 
 const homeName = "Home";
 const settingsName = "Settings";
@@ -45,7 +45,7 @@ export const MainContainer = ({route}: any) => {
                 {() => <Home/>}
             </Tab.Screen>
             <Tab.Screen name={settingsName} key={settingsName} initialParams={{userData: userData}}>
-                {(props) => <Profile {...props} />}
+                {(props) => <Settings {...props} />}
             </Tab.Screen>
         </Tab.Navigator>
     );
