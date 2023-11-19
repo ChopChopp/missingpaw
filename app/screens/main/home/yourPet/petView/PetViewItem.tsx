@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Image, useWindowDimensions, Text} from "react-native";
+import {StyleSheet, View, Image, useWindowDimensions} from "react-native";
 import ThemedText from "../../../../../helper/themedText/ThemedText";
 
 const PetViewItem = ({item}: any) => {

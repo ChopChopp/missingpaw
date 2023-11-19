@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Image, SafeAreaView, StyleSheet, TouchableOpacity, View} from "react-native";
+import {SafeAreaView, StyleSheet, TouchableOpacity, View} from "react-native";
 import ThemedText from "../../../../helper/themedText/ThemedText";
 import {FIREBASE_DATABASE} from "../../../../../FirebaseConfig";
 import {ref, get} from "firebase/database";

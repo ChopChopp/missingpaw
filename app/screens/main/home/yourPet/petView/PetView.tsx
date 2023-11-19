@@ -2,7 +2,6 @@ import React, {useState, useRef} from "react";
 import {StyleSheet, View, FlatList, Animated} from "react-native";
 import PetViewItem from "./PetViewItem";
 import Paginator from "./Paginator";
-import slides from './testData';
 
 const PetView = ({pet}: any) => {
     const [currentIndex, setCurrentIndex] = useState(0);
