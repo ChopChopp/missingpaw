@@ -3,8 +3,12 @@ import {SafeAreaView, StyleSheet, TouchableOpacity, useColorScheme, View} from "
 import ThemedText from "../../../helper/themedText/ThemedText";
 import {useState} from "react";
 import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
+import YourPet from "./yourPet/YourPet";
+import MissingPets from "./missingPets/MissingPets";
 
-export default function Home() {
+const Home = ({route}: { route: any }) => {
+    const {userData} = route.params;
+
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
     const [selectedOption, setSelectedOption] = useState<string | null>("Your pet");
 
@@ -23,16 +27,22 @@ export default function Home() {
 
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity style={styles.button} onPress={() => handlePress('Missing pets')}>
-                {renderTextWithUnderline('Missing pets', selectedOption === 'Missing pets')}
-            </TouchableOpacity>
+            <View style={styles.navContainer}>
+                <TouchableOpacity style={styles.button} onPress={() => handlePress('Missing pets')}>
+                    {renderTextWithUnderline('Missing pets', selectedOption === 'Missing pets')}
+                </TouchableOpacity>
 
-            <ThemedText>/</ThemedText>
+                <ThemedText>/</ThemedText>
 
-            <TouchableOpacity style={styles.button} onPress={() => handlePress('Your pet')}>
-                {renderTextWithUnderline('Your pet', selectedOption === 'Your pet')}
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => handlePress('Your pet')}>
+                    {renderTextWithUnderline('Your pet', selectedOption === 'Your pet')}
+                </TouchableOpacity>
+            </View>
 
+            <View style={styles.contentContainer}>
+                {selectedOption === 'Your pet' && <YourPet userData={userData}/>}
+                {selectedOption === 'Missing pets' && <MissingPets userData={userData}/>}
+            </View>
         </SafeAreaView>
     );
 }
@@ -40,11 +50,21 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: "column",
+        alignItems: 'center',
+        marginTop: 100,
+    },
+    navContainer: {
+        flex: 1,
         gap: 10,
         justifyContent: "center",
         flexDirection: "row",
         alignItems: 'flex-start',
-        marginTop: 120,
+        maxHeight: 50,
+    },
+    contentContainer: {
+        flex: 1,
+        justifyContent: "center",
     },
     button: {
         paddingHorizontal: 10,
@@ -65,5 +85,7 @@ const styles = StyleSheet.create({
         width: '75%',
         marginTop: 5,
         alignSelf: 'center',
-    },
+    }
 });
+
+export default Home;

@@ -41,8 +41,8 @@ export const MainContainer = ({route}: any) => {
                 tabBarInactiveTintColor: 'grey'
             })}
         >
-            <Tab.Screen name={homeName} key={homeName}>
-                {() => <Home/>}
+            <Tab.Screen name={homeName} key={homeName} initialParams={{userData: userData}}>
+                {(props) => <Home {...props} />}
             </Tab.Screen>
             <Tab.Screen name={settingsName} key={settingsName} initialParams={{userData: userData}}>
                 {(props) => <Settings {...props} />}

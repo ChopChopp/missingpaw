@@ -11,7 +11,7 @@ import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 
 const auth = getAuth();
 
-export default function Settings({navigation, route}: any) {
+const Settings = ({navigation, route}: any) => {
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
     const {userData} = route.params;
 
@@ -61,4 +61,4 @@ export default function Settings({navigation, route}: any) {
     );
 }
 
-
+export default Settings;
