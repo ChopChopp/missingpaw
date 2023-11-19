@@ -27,14 +27,20 @@ const YourPet = ({userData, setShowAddPet}: any) => {
 
     const [loading, setLoading] = useState(false);
 
-    const petObject = {
-        name: name,
-        age: age,
-        type: type,
-        breed: breed,
-        color: color,
-        imageUrl: "https://random.dog/b780466a-d547-45db-9168-924e3dc485ea.jpg"
-    };
+    const petObject = [
+        {
+            id: 0,
+            name: name,
+            imageUrl: "https://random.dog/b780466a-d547-45db-9168-924e3dc485ea.jpg"
+        }, {
+            id: 1,
+            name: name,
+            age: age,
+            type: type,
+            breed: breed,
+            color: color,
+        }
+    ]
 
     const createPetObject = () => {
         if (name === "" || age === "" || type === "" || breed === "" || color === "" || image === "") {
@@ -70,7 +76,7 @@ const YourPet = ({userData, setShowAddPet}: any) => {
             >
                 <ThemedText style={styles.title}>Pet details</ThemedText>
                 <TextInput
-                    style={[styles.input, { color: textColor }]}
+                    style={[styles.input, {color: textColor}]}
                     placeholder="Pet name"
                     value={name}
                     onChangeText={(text) => setName(text)}
@@ -78,7 +84,7 @@ const YourPet = ({userData, setShowAddPet}: any) => {
                     keyboardType="default"
                 />
                 <TextInput
-                    style={[styles.input, { color: textColor }]}
+                    style={[styles.input, {color: textColor}]}
                     placeholder="Age"
                     value={age}
                     onChangeText={(text) => setAge(text)}
@@ -86,7 +92,7 @@ const YourPet = ({userData, setShowAddPet}: any) => {
                     keyboardType="numeric"
                 />
                 <TextInput
-                    style={[styles.input, { color: textColor }]}
+                    style={[styles.input, {color: textColor}]}
                     placeholder="Pet type (Dog, Cat, etc.)"
                     value={type}
                     onChangeText={(text) => setType(text)}
@@ -94,7 +100,7 @@ const YourPet = ({userData, setShowAddPet}: any) => {
                     keyboardType="default"
                 />
                 <TextInput
-                    style={[styles.input, { color: textColor }]}
+                    style={[styles.input, {color: textColor}]}
                     placeholder="Breed (Bernese Mountain Dog, etc.)"
                     value={breed}
                     onChangeText={(text) => setBreed(text)}
@@ -102,7 +108,7 @@ const YourPet = ({userData, setShowAddPet}: any) => {
                     keyboardType="default"
                 />
                 <TextInput
-                    style={[styles.input, { color: textColor }]}
+                    style={[styles.input, {color: textColor}]}
                     placeholder="Color (Black, Brown, etc.)"
                     value={color}
                     onChangeText={(text) => setColor(text)}
@@ -110,7 +116,7 @@ const YourPet = ({userData, setShowAddPet}: any) => {
                     keyboardType="default"
                 />
                 <TextInput
-                    style={[styles.input, { color: textColor }]}
+                    style={[styles.input, {color: textColor}]}
                     placeholder="Upload image..."
                     value={image}
                     onChangeText={(text) => setImage(text)}

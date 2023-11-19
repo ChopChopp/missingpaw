@@ -5,6 +5,7 @@ import {FIREBASE_DATABASE} from "../../../../../FirebaseConfig";
 import {ref, get} from "firebase/database";
 import {useEffect, useState} from "react";
 import AddPet from "./addPet/AddPet";
+import PetView from "./petView/PetView";
 
 interface Pet {
     name: string;
@@ -18,7 +19,7 @@ interface Pet {
 const YourPet = ({userData}: any) => {
     const [pet, setPet] = useState<Pet | null>(null);
     const [hasPets, setHasPets] = useState<boolean | null>(null);
-    const [showAddPet, setShowAddPet] = React.useState<boolean>(false);
+    const [showAddPet, setShowAddPet] = useState<boolean>(false);
 
     const userRef = ref(FIREBASE_DATABASE, "users/" + userData.id + "/pet");
 
@@ -49,21 +50,20 @@ const YourPet = ({userData}: any) => {
                 ?
                 <>
                     {pet && (
-                        <>
-                            <ThemedText>You already have a pet!</ThemedText>
-                            <ThemedText>{pet.name}</ThemedText>
-                            <ThemedText>{pet.age}</ThemedText>
-                            <ThemedText>{pet.breed}</ThemedText>
-                            <ThemedText>{pet.type}</ThemedText>
-                            <ThemedText>{pet.color}</ThemedText>
-                            <Image source={{uri: pet.imageUrl}} style={{width: 200, height: 200}}/>
-                        </>
+                        <PetView pet={pet} />
+                        // <View>
+                        //     <ThemedText>{pet.name}</ThemedText>
+                        //     <ThemedText>{pet.age}</ThemedText>
+                        //     <ThemedText>{pet.breed}</ThemedText>
+                        //     <ThemedText>{pet.type}</ThemedText>
+                        //     <ThemedText>{pet.color}</ThemedText>
+                        //     <Image source={{uri: pet.imageUrl}} style={{width: 200, height: 200}}/>
+                        // </View>
                     )}
                 </>
-
                 :
                 showAddPet ?
-                    <AddPet userData={userData} setShowAddPet={setShowAddPet} />
+                    <AddPet userData={userData} setShowAddPet={setShowAddPet}/>
                     :
                     <View style={styles.container}>
                         <ThemedText>You don't have a pet yet!</ThemedText>
