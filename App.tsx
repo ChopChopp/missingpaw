@@ -10,14 +10,11 @@ import {DarkTheme, LightTheme} from "./app/helper/theme/Theme";
 
 const Stack = createNativeStackNavigator();
 const InsideStack = createNativeStackNavigator();
-
-import { Appearance } from 'react-native';
-const colorScheme = Appearance.getColorScheme();
-const theme = colorScheme === 'dark' ? DarkTheme : LightTheme;
+import {Appearance} from 'react-native';
 
 const InsideLayout = ({userData}: any) => {
     return (
-        <InsideStack.Navigator screenOptions={{ headerShown: false}}>
+        <InsideStack.Navigator screenOptions={{headerShown: false}}>
             <InsideStack.Screen
                 name="Main"
                 initialParams={{userData: userData}}
@@ -27,7 +24,23 @@ const InsideLayout = ({userData}: any) => {
     );
 };
 
+type ThemeType = 'light' | 'dark';
+
 const App = () => {
+
+    const [themeType, setThemeType] = useState<ThemeType>(Appearance.getColorScheme() as ThemeType);
+
+    useEffect(() => {
+        const handleThemeChange = (preferences: any) => {
+            const {colorScheme} = preferences;
+            setThemeType(colorScheme as ThemeType);
+        };
+
+        const themeListener = Appearance.addChangeListener(handleThemeChange);
+
+        return () => themeListener.remove();
+    }, []);
+
     const [user, setUser] = useState<User | null>(null);
     const [userData, setUserData] = useState(null);
 
@@ -59,8 +72,8 @@ const App = () => {
     }, []);
 
     return (
-        <NavigationContainer theme={theme}>
-            <Stack.Navigator initialRouteName="Authentication" screenOptions={{ headerShown: false,}}>
+        <NavigationContainer theme={themeType === 'dark' ? DarkTheme : LightTheme}>
+            <Stack.Navigator initialRouteName="Authentication" screenOptions={{headerShown: false,}}>
                 {user && userData ? (
                     <Stack.Screen
                         name="Home"
