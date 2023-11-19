@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import Authentication from "./app/screens/authentication/Authentication";
 import {User, onAuthStateChanged} from "firebase/auth";
-import {DefaultTheme, NavigationContainer} from "@react-navigation/native";
+import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {FIREBASE_AUTH, FIREBASE_DATABASE} from "./FirebaseConfig";
 import {MainContainer} from "./app/screens/main/MainContainer";
