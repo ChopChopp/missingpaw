@@ -50,15 +50,7 @@ const YourPet = ({userData}: any) => {
                 ?
                 <>
                     {pet && (
-                        <PetView pet={pet} />
-                        // <View>
-                        //     <ThemedText>{pet.name}</ThemedText>
-                        //     <ThemedText>{pet.age}</ThemedText>
-                        //     <ThemedText>{pet.breed}</ThemedText>
-                        //     <ThemedText>{pet.type}</ThemedText>
-                        //     <ThemedText>{pet.color}</ThemedText>
-                        //     <Image source={{uri: pet.imageUrl}} style={{width: 200, height: 200}}/>
-                        // </View>
+                        <PetView pet={pet}/>
                     )}
                 </>
                 :
