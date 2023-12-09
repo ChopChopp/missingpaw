@@ -203,7 +203,6 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         borderRadius: 4,
         marginBottom: 16,
-        backgroundColor: "#1c1c1e",
         minWidth: "90%",
         color: "#fff",
     },

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 
-import { StyleSheet, Button, SafeAreaView, Text } from "react-native";
+import {StyleSheet, Button, SafeAreaView, Text, useColorScheme} from "react-native";
 import Login from "./login/Login";
 import Register from "./register/Register";
+import {DarkTheme, LightTheme} from "../../helper/theme/Theme";
 
 const Authentication = ({}: any) => {
+  const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
   const [showRegister, setShowRegister] = useState(true);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>SIMÂO project</Text>
+      <Text style={[styles.title, {color: textColor}]}>Missing Paw</Text>
 
       {showRegister ? <Register /> : <Login />}
       <Button
