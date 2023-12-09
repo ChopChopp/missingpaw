@@ -9,13 +9,17 @@ import {
 } from "react-native";
 import ThemedText from "../../../../../helper/themedText/ThemedText";
 import {ref, set} from "firebase/database";
+import {ref as strgRef, uploadBytes } from "firebase/storage";
 import {FIREBASE_DATABASE} from "../../../../../../FirebaseConfig";
 import {useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
+import {STORAGE} from "../../../../../../FirebaseConfig";
+
 
 const YourPet = ({userData, setShowAddPet}: any) => {
     const userRef = ref(FIREBASE_DATABASE, "users/" + userData.id + "/pet");
+    const storageRef = strgRef(STORAGE, 'image')
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
 
     const [name, setName] = useState("");
@@ -23,9 +27,27 @@ const YourPet = ({userData, setShowAddPet}: any) => {
     const [type, setType] = useState("");
     const [breed, setBreed] = useState("");
     const [color, setColor] = useState("");
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState(null);
 
     const [loading, setLoading] = useState(false);
+
+    const handleChange = (e: any) => {
+        if (e.target.files[0]) {
+            setImage(e.target.files[0]);
+        }
+    }
+    const submit = (e: any) => {
+        e.preventDefault();
+        if (image) {
+            uploadBytes(storageRef, image).then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+            }).catch((error) => {
+                console.log(error);
+            });
+        } else {
+            console.log("No image selected!");
+        }
+    }
 
     const petObject = [
         {
@@ -115,14 +137,18 @@ const YourPet = ({userData, setShowAddPet}: any) => {
                     autoCapitalize="none"
                     keyboardType="default"
                 />
-                <TextInput
-                    style={[styles.input, {color: textColor}]}
-                    placeholder="Upload image..."
-                    value={image}
-                    onChangeText={(text) => setImage(text)}
-                    autoCapitalize="none"
-                    keyboardType="default"
-                />
+
+                <input type={"file"} onChange={handleChange}/>
+                <input type={"button"} onClick={submit}>Upload</input>
+
+                {/*<TextInput*/}
+                {/*    style={[styles.input, {color: textColor}]}*/}
+                {/*    placeholder="Upload image..."*/}
+                {/*    value={image}*/}
+                {/*    onChangeText={(text) => setImage(text)}*/}
+                {/*    autoCapitalize="none"*/}
+                {/*    keyboardType="default"*/}
+                {/*/>*/}
 
                 <View style={styles.actionContainer}>
                     {loading ? (
