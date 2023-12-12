@@ -1,6 +1,6 @@
 import * as React from "react";
 import {
-    ActivityIndicator,
+    ActivityIndicator, Button,
     SafeAreaView,
     StyleSheet,
     TextInput,
@@ -15,6 +15,8 @@ import {useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
 import {STORAGE} from "../../../../../../FirebaseConfig";
+import ImagePicker from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 
 const YourPet = ({userData, setShowAddPet}: any) => {
@@ -36,6 +38,7 @@ const YourPet = ({userData, setShowAddPet}: any) => {
             setImage(e.target.files[0]);
         }
     }
+
     const submit = (e: any) => {
         e.preventDefault();
         if (image) {
@@ -48,6 +51,28 @@ const YourPet = ({userData, setShowAddPet}: any) => {
             console.log("No image selected!");
         }
     }
+
+
+    const selectImage = () => {
+        const options = {
+            mediaType: 'photo',
+            quality: 1,
+        };
+
+        launchImageLibrary(options, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                const source = { uri: response.assets[0].uri };
+                // Use the uri from the response.assets array
+                setImageUri(source);
+            }
+        });
+    };
 
     const petObject = [
         {
@@ -138,8 +163,11 @@ const YourPet = ({userData, setShowAddPet}: any) => {
                     keyboardType="default"
                 />
 
-                <input type={"file"} onChange={handleChange}/>
-                <input type={"button"} onClick={submit}>Upload</input>
+                {/*<input type={"file"} onChange={handleChange}/>*/}
+                {/*<input type={"button"} onClick={submit}>Upload</input>*/}
+                <Button title="Select Image" onPress={selectImage} />
+                {/*{imageUri && <Image source={imageUri} style={{ width: 200, height: 200 }} />}*/}
+
 
                 {/*<TextInput*/}
                 {/*    style={[styles.input, {color: textColor}]}*/}
