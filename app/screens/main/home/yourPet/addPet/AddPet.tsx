@@ -31,9 +31,7 @@ const AddPet = ({userData, setShowAddPet}: any) => {
     const [type, setType] = useState("");
     const [breed, setBreed] = useState("");
     const [color, setColor] = useState("");
-
     const [image, setImage] = useState('');
-    const [error, setError] = useState(null);
 
     const [loading, setLoading] = useState(false);
 
@@ -58,25 +56,9 @@ const AddPet = ({userData, setShowAddPet}: any) => {
 
             if (!result.canceled) {
                 setImage(result.assets[0].uri);
-                setError(null);
             }
         }
     };
-
-    let petObject = [
-        {
-            id: 0,
-            name: name,
-            imageUrl: "https://random.dog/b780466a-d547-45db-9168-924e3dc485ea.jpg"
-        }, {
-            id: 1,
-            name: name,
-            age: age,
-            type: type,
-            breed: breed,
-            color: color,
-        }
-    ]
 
     const createPetObject = () => {
         if (name === "" || age === "" || type === "" || breed === "" || color === "" || image === "") {
