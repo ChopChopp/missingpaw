@@ -44,8 +44,6 @@ const AddPet = ({userData, setShowAddPet}: any) => {
         const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
         if (status !== "granted") {
-
-            // If permission is denied, show an alert
             Alert.alert(
                 "Permission Denied",
                 `Sorry, we need camera  
@@ -68,7 +66,6 @@ const AddPet = ({userData, setShowAddPet}: any) => {
 
         console.log("Creating pet object...");
         setLoading(true)
-
 
         uriToBlob(image).then((blob) => {
             uploadBytes(storageRef, blob).then((snapshot) => {
