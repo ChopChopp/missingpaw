@@ -1,22 +1,22 @@
 import * as React from "react";
 import {
-    ActivityIndicator, Button,
+    ActivityIndicator, Alert, Button,
     SafeAreaView,
     StyleSheet,
     TextInput,
     TouchableOpacity, useColorScheme,
-    View
+    View,
+    Image
 } from "react-native";
 import ThemedText from "../../../../../helper/themedText/ThemedText";
 import {ref, set} from "firebase/database";
-import {ref as strgRef, uploadBytes } from "firebase/storage";
+import {ref as strgRef, uploadBytes} from "firebase/storage";
 import {FIREBASE_DATABASE} from "../../../../../../FirebaseConfig";
 import {useState} from "react";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
 import {STORAGE} from "../../../../../../FirebaseConfig";
-import ImagePicker from 'react-native-image-picker';
-import { launchImageLibrary } from 'react-native-image-picker';
+import * as ImagePicker from "expo-image-picker";
 
 
 const YourPet = ({userData, setShowAddPet}: any) => {
@@ -29,7 +29,9 @@ const YourPet = ({userData, setShowAddPet}: any) => {
     const [type, setType] = useState("");
     const [breed, setBreed] = useState("");
     const [color, setColor] = useState("");
-    const [image, setImage] = useState(null);
+
+    const [image, setImage] = useState('');
+    const [error, setError] = useState(null);
 
     const [loading, setLoading] = useState(false);
 
@@ -39,39 +41,25 @@ const YourPet = ({userData, setShowAddPet}: any) => {
         }
     }
 
-    const submit = (e: any) => {
-        e.preventDefault();
-        if (image) {
-            uploadBytes(storageRef, image).then((snapshot) => {
-                console.log('Uploaded a blob or file!');
-            }).catch((error) => {
-                console.log(error);
-            });
+    const pickImage = async () => {
+        const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        if (status !== "granted") {
+
+            // If permission is denied, show an alert
+            Alert.alert(
+                "Permission Denied",
+                `Sorry, we need camera  
+                 roll permission to upload images.`
+            );
         } else {
-            console.log("No image selected!");
-        }
-    }
+            const result = await ImagePicker.launchImageLibraryAsync();
 
-
-    const selectImage = () => {
-        const options = {
-            mediaType: 'photo',
-            quality: 1,
-        };
-
-        launchImageLibrary(options, (response) => {
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-            } else if (response.error) {
-                console.log('ImagePicker Error: ', response.error);
-            } else if (response.customButton) {
-                console.log('User tapped custom button: ', response.customButton);
-            } else {
-                const source = { uri: response.assets[0].uri };
-                // Use the uri from the response.assets array
-                setImageUri(source);
+            if (!result.canceled) {
+                setImage(result.assets[0].uri);
+                setError(null);
             }
-        });
+        }
     };
 
     const petObject = [
@@ -163,20 +151,8 @@ const YourPet = ({userData, setShowAddPet}: any) => {
                     keyboardType="default"
                 />
 
-                {/*<input type={"file"} onChange={handleChange}/>*/}
-                {/*<input type={"button"} onClick={submit}>Upload</input>*/}
-                <Button title="Select Image" onPress={selectImage} />
-                {/*{imageUri && <Image source={imageUri} style={{ width: 200, height: 200 }} />}*/}
-
-
-                {/*<TextInput*/}
-                {/*    style={[styles.input, {color: textColor}]}*/}
-                {/*    placeholder="Upload image..."*/}
-                {/*    value={image}*/}
-                {/*    onChangeText={(text) => setImage(text)}*/}
-                {/*    autoCapitalize="none"*/}
-                {/*    keyboardType="default"*/}
-                {/*/>*/}
+                <Button title="Select Image" onPress={pickImage}/>
+                {image && <Image source={{uri: image}} style={{ width: 200, height: 200 }} />}
 
                 <View style={styles.actionContainer}>
                     {loading ? (

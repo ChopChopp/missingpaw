@@ -36,6 +36,13 @@
             "useFrameworks": "static"
           }
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Select and upload images.",
+          "cameraPermission": "Allow MissingPaw to access your camera."
+        }
       ]
     ]
   }
