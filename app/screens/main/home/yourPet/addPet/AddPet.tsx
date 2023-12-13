@@ -1,25 +1,27 @@
 import * as React from "react";
+import {useState} from "react";
 import {
-    ActivityIndicator, Alert, Button,
+    ActivityIndicator,
+    Alert,
+    Button,
+    Image,
     SafeAreaView,
     StyleSheet,
     TextInput,
-    TouchableOpacity, useColorScheme,
-    View,
-    Image
+    TouchableOpacity,
+    useColorScheme,
+    View
 } from "react-native";
 import ThemedText from "../../../../../helper/themedText/ThemedText";
 import {ref, set} from "firebase/database";
-import {ref as strgRef, uploadBytes} from "firebase/storage";
-import {FIREBASE_DATABASE} from "../../../../../../FirebaseConfig";
-import {useState} from "react";
+import {ref as strgRef, uploadBytes, getDownloadURL} from "firebase/storage";
+import {FIREBASE_DATABASE, STORAGE} from "../../../../../../FirebaseConfig";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
-import {STORAGE} from "../../../../../../FirebaseConfig";
 import * as ImagePicker from "expo-image-picker";
 
 
-const YourPet = ({userData, setShowAddPet}: any) => {
+const AddPet = ({userData, setShowAddPet}: any) => {
     const userRef = ref(FIREBASE_DATABASE, "users/" + userData.id + "/pet");
     const storageRef = strgRef(STORAGE, 'image')
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
@@ -35,11 +37,10 @@ const YourPet = ({userData, setShowAddPet}: any) => {
 
     const [loading, setLoading] = useState(false);
 
-    const handleChange = (e: any) => {
-        if (e.target.files[0]) {
-            setImage(e.target.files[0]);
-        }
-    }
+    const uriToBlob = async (uri: string) => {
+        const response = await fetch(uri);
+        return await response.blob();
+    };
 
     const pickImage = async () => {
         const {status} = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -62,7 +63,7 @@ const YourPet = ({userData, setShowAddPet}: any) => {
         }
     };
 
-    const petObject = [
+    let petObject = [
         {
             id: 0,
             name: name,
@@ -86,12 +87,44 @@ const YourPet = ({userData, setShowAddPet}: any) => {
         console.log("Creating pet object...");
         setLoading(true)
 
-        set(userRef, petObject).then(() => {
-            console.log("Pet object added successfully!")
-            setLoading(false)
-            setShowAddPet(false)
+
+        uriToBlob(image).then((blob) => {
+            uploadBytes(storageRef, blob).then((snapshot) => {
+                console.log('Uploaded a blob!');
+                getDownloadURL(snapshot.ref).then((downloadURL) => {
+                    const petObject = [
+                        {
+                            id: 0,
+                            name: name,
+                            imageUrl: downloadURL
+                        }, {
+                            id: 1,
+                            name: name,
+                            age: age,
+                            type: type,
+                            breed: breed,
+                            color: color,
+                        }
+                    ]
+
+                    set(userRef, petObject).then(() => {
+                        console.log("Pet object added successfully!")
+                        setLoading(false)
+                        setShowAddPet(false)
+                    }).catch((error) => {
+                        console.log("Failed to add pet object:", error);
+                        setLoading(false);
+                    });
+                }).catch((error) => {
+                    console.log("Failed to get download URL", error);
+                });
+            }).catch((error) => {
+                console.log("Error uploading file:", error);
+                setLoading(false);
+            });
         }).catch((error) => {
-            console.log("Failed to add pet object:", error);
+            console.log("Error converting URI to blob:", error);
+            setLoading(false);
         });
     }
 
@@ -152,7 +185,7 @@ const YourPet = ({userData, setShowAddPet}: any) => {
                 />
 
                 <Button title="Select Image" onPress={pickImage}/>
-                {image && <Image source={{uri: image}} style={{ width: 200, height: 200 }} />}
+                {image && <Image source={{uri: image}} style={{width: 200, height: 200}}/>}
 
                 <View style={styles.actionContainer}>
                     {loading ? (
@@ -218,4 +251,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default YourPet;
+export default AddPet;
