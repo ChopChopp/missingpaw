@@ -1,5 +1,5 @@
 import React, {useState, useRef} from "react";
-import {StyleSheet, View, FlatList, Animated} from "react-native";
+import {StyleSheet, View, FlatList, Animated, TouchableOpacity, Text} from "react-native";
 import PetViewItem from "./PetViewItem";
 import Paginator from "./Paginator";
 
@@ -33,6 +33,11 @@ const PetView = ({pet}: any) => {
                 />
             </View>
             <Paginator data={pet} scrollX={scrollX}/>
+            <TouchableOpacity style={styles.reportMissingButton} onPress={() => {
+                console.log('REPORT MISSING PRESSED')
+            }}>
+                <Text style={styles.reportMissingButtonText}>Report Missing!</Text>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -42,6 +47,21 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: "center",
+        gap: -20,
+    },
+    reportMissingButton: {
+        backgroundColor: '#ff3b30',
+        paddingTop: 20,
+        paddingRight: 30,
+        paddingBottom: 20,
+        paddingLeft: 30,
+        borderRadius: 5,
+        marginBottom: 35,
+    },
+    reportMissingButtonText: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
     }
 });
 

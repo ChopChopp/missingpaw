@@ -17,10 +17,10 @@ const PetViewItem = ({item}: any) => {
                     <ThemedText style={styles.description}>Type: {item.type}</ThemedText>
                 </View>
             ) : (
-                <>
+                <View style={styles.petContainer}>
                     <ThemedText style={styles.title}>{item.name}</ThemedText>
                     <Image source={{uri: item.imageUrl}} style={styles.image}/>
-                </>
+                </View>
             )}
 
         </View>
@@ -34,10 +34,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     image: {
-        flex: 0.7,
-        justifyContent: "center",
-        width: 200,
-        height: 200
+        width: '100%',
+        aspectRatio: 1,
     },
     title: {
         fontWeight: "800",
@@ -49,6 +47,10 @@ const styles = StyleSheet.create({
         fontWeight: "300",
         paddingHorizontal: 64,
         textAlign: "center"
+    },
+    petContainer: {
+        justifyContent: "center",
+        backgroundColor: "#8e8e93",
     }
 });
 
