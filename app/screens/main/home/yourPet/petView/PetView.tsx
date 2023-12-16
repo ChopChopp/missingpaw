@@ -3,7 +3,7 @@ import {StyleSheet, View, FlatList, Animated, TouchableOpacity, Text} from "reac
 import PetViewItem from "./PetViewItem";
 import Paginator from "./Paginator";
 
-const PetView = ({pet}: any) => {
+const PetView = ({pet}: any, {userRef}: any) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const scrollX = useRef(new Animated.Value(0)).current;
     const slidesRef = useRef(null);
@@ -17,7 +17,8 @@ const PetView = ({pet}: any) => {
     return (
         <View style={styles.container}>
             <View style={{flex: 3}}>
-                <FlatList data={pet} renderItem={({item}) => <PetViewItem item={item} currentIndex={currentIndex}/>}
+                <FlatList data={pet} renderItem={({item}) => <PetViewItem item={item} currentIndex={currentIndex}
+                                                                          userRef={userRef}/>}
                           horizontal
                           showsHorizontalScrollIndicator={false}
                           pagingEnabled

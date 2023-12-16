@@ -50,7 +50,7 @@ const YourPet = ({userData}: any) => {
                 ?
                 <>
                     {pet && (
-                        <PetView pet={pet}/>
+                        <PetView pet={pet} userRef={userRef}/>
                     )}
                 </>
                 :
