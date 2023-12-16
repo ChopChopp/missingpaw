@@ -1,6 +1,12 @@
 import React from "react";
 import {StyleSheet, View, Image, useWindowDimensions} from "react-native";
 import ThemedText from "../../../../../helper/themedText/ThemedText";
+import Dog from "../../../../../helper/icons/Dog";
+import Color from "../../../../../helper/icons/Color";
+import Breed from "../../../../../helper/icons/Breed";
+import DogTag from "../../../../../helper/icons/DogTag";
+import Paw from "../../../../../helper/icons/Paw";
+import ArrowRight from "../../../../../helper/icons/ArrowRight";
 
 const PetViewItem = ({item}: any) => {
 
@@ -10,11 +16,44 @@ const PetViewItem = ({item}: any) => {
         <View style={[styles.container, {width}]}>
             {item.id === 1 ? (
                 <View style={styles.petDetails}>
-                    <ThemedText style={styles.description}>Age: {item.age}</ThemedText>
-                    <ThemedText style={styles.description}>Breed: {item.breed}</ThemedText>
-                    <ThemedText style={styles.description}>Color: {item.color}</ThemedText>
-                    <ThemedText style={styles.description}>Type: {item.type}</ThemedText>
+                    <ThemedText style={styles.subTitle}>Pet details</ThemedText>
+
+                    <View style={styles.petDetailsElement}>
+                        <DogTag style={styles.icon}/>
+                        <ThemedText style={styles.key}>Name: </ThemedText>
+                        <ThemedText style={styles.value}>{item.name}</ThemedText>
+                        <ArrowRight style={styles.editIcon}/>
+                    </View>
+
+                    <View style={styles.petDetailsElement}>
+                        <Dog style={styles.icon}/>
+                        <ThemedText style={styles.key}>Age: </ThemedText>
+                        <ThemedText style={styles.value}>{item.age}</ThemedText>
+                        <ArrowRight style={styles.editIcon}/>
+                    </View>
+
+                    <View style={styles.petDetailsElement}>
+                        <Breed style={styles.icon}/>
+                        <ThemedText style={styles.key}>Breed: </ThemedText>
+                        <ThemedText style={styles.value}>{item.breed}</ThemedText>
+                        <ArrowRight style={styles.editIcon}/>
+                    </View>
+
+                    <View style={styles.petDetailsElement}>
+                        <Color style={styles.icon}/>
+                        <ThemedText style={styles.key}>Color: </ThemedText>
+                        <ThemedText style={styles.value}>{item.color}</ThemedText>
+                        <ArrowRight style={styles.editIcon}/>
+                    </View>
+
+                    <View style={styles.petDetailsElement}>
+                        <Paw style={styles.icon}/>
+                        <ThemedText style={styles.key}>Type: </ThemedText>
+                        <ThemedText style={styles.value}>{item.type}</ThemedText>
+                        <ArrowRight style={styles.editIcon}/>
+                    </View>
                 </View>
+
             ) : (
                 <View style={styles.petContainer}>
                     <ThemedText style={styles.title}>{item.name}</ThemedText>
@@ -43,10 +82,10 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         textAlign: "center"
     },
-    description: {
-        fontWeight: "300",
-        paddingHorizontal: 64,
-        textAlign: "center"
+    subTitle: {
+        textAlign: "center",
+        fontSize: 14,
+        margin: 5,
     },
     petContainer: {
         justifyContent: "center",
@@ -58,8 +97,29 @@ const styles = StyleSheet.create({
         height: '73.5%',
         marginTop: 50,
         borderRadius: 6,
-        justifyContent: "flex-start"
-    }
+        justifyContent: "flex-start",
+    },
+    petDetailsElement: {
+        flexDirection: "row",
+        backgroundColor: "#737373",
+        padding: 10,
+        borderTopColor: "#8c8c8c",
+        borderTopWidth: 1,
+    },
+    icon: {
+        marginRight: 10,
+        marginTop: 5,
+    },
+    editIcon: {
+        marginTop: 5,
+        marginLeft: 20,
+    },
+    key: {
+        fontWeight: "bold",
+    },
+    value: {
+        marginLeft: 'auto',
+    },
 });
 
 export default PetViewItem;
