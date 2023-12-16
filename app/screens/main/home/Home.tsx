@@ -8,7 +8,6 @@ import MissingPets from "./missingPets/MissingPets";
 
 const Home = ({route}: { route: any }) => {
     const {userData} = route.params;
-    console.log("INSIDE HOME" + userData)
 
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
     const [selectedOption, setSelectedOption] = useState<string | null>("Your pet");
