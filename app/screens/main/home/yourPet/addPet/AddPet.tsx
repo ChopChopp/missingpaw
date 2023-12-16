@@ -23,7 +23,7 @@ import * as ImagePicker from "expo-image-picker";
 
 const AddPet = ({userData, setShowAddPet}: any) => {
     const userRef = ref(FIREBASE_DATABASE, "users/" + userData.id + "/pet");
-    const storageRef = strgRef(STORAGE, 'image')
+    const storageRef = strgRef(STORAGE, userData.id)
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
 
     const [name, setName] = useState("");
@@ -83,6 +83,7 @@ const AddPet = ({userData, setShowAddPet}: any) => {
                             type: type,
                             breed: breed,
                             color: color,
+                            imageUrl: downloadURL
                         }
                     ]
 

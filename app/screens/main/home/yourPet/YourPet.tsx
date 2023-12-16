@@ -23,26 +23,23 @@ const YourPet = ({userData}: any) => {
 
     const userRef = ref(FIREBASE_DATABASE, "users/" + userData.id + "/pet");
 
-    useEffect(() => {
-        const checkForPets = () => {
-            get(userRef).then(snapshot => {
-                if (snapshot.exists()) {
-                    console.log('User already has pets:', snapshot.val());
-                    setPet(snapshot.val());
-                    setHasPets(true);
-                } else {
-                    console.log('User does not have any pets.');
-                    setHasPets(false);
-                }
-            }).catch((error) => {
-                console.error('Error checking for pets:', error);
+    const checkForPets = () => {
+        get(userRef).then(snapshot => {
+            if (snapshot.exists()) {
+                setPet(snapshot.val());
+                setHasPets(true);
+            } else {
                 setHasPets(false);
-            });
-        };
+            }
+        }).catch((error) => {
+            console.error('Error checking for pets:', error);
+            setHasPets(false);
+        });
+    };
 
+    useEffect(() => {
         checkForPets();
     }, [showAddPet]);
-
 
     return (
         <SafeAreaView>
@@ -50,7 +47,7 @@ const YourPet = ({userData}: any) => {
                 ?
                 <>
                     {pet && (
-                        <PetView pet={pet} userRef={userRef}/>
+                        <PetView pet={pet} userData={userData} checkForPets={checkForPets}/>
                     )}
                 </>
                 :

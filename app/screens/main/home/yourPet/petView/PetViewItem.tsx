@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {
-    StyleSheet,
-    View,
+    ActivityIndicator,
+    Alert,
     Image,
-    useWindowDimensions,
-    TouchableOpacity,
+    StyleSheet,
     TextInput,
+    TouchableOpacity,
     useColorScheme,
-    Alert
+    useWindowDimensions,
+    View
 } from "react-native";
 import ThemedText from "../../../../../helper/themedText/ThemedText";
 import Dog from "../../../../../helper/icons/Dog";
@@ -20,12 +21,11 @@ import Check from "../../../../../helper/icons/Check";
 import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
 import * as ImagePicker from "expo-image-picker";
 import {getDownloadURL, ref as strgRef, uploadBytes} from "firebase/storage";
-import {set} from "firebase/database";
-import {STORAGE} from "../../../../../../FirebaseConfig";
+import {ref, update} from "firebase/database";
+import {FIREBASE_DATABASE, STORAGE} from "../../../../../../FirebaseConfig";
 
-const PetViewItem = ({item}: any, {userRef}: any) => {
-    console.log("ITEM:", item)
-    const storageRef = strgRef(STORAGE)
+const PetViewItem = ({item, userData, checkForPets}: any) => {
+    const storageRef = strgRef(STORAGE, userData.id)
 
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
 
@@ -41,6 +41,19 @@ const PetViewItem = ({item}: any, {userRef}: any) => {
     const [image, setImage] = useState(item.imageUrl);
 
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        resetFields();
+    }, [checkForPets])
+
+    const resetFields = () => {
+        setName(item.name);
+        setAge(item.age);
+        setType(item.type);
+        setBreed(item.breed);
+        setColor(item.color);
+        setImage(item.imageUrl);
+    }
 
     const handleChanges = () => {
         if (name !== item.name || age !== item.age || type !== item.type || breed !== item.breed || color !== item.color || image !== item.imageUrl) {
@@ -62,58 +75,75 @@ const PetViewItem = ({item}: any, {userRef}: any) => {
             const result = await ImagePicker.launchImageLibraryAsync();
 
             if (!result.canceled) {
+                setFieldsUpdated(true)
                 setImage(result.assets[0].uri);
             }
         }
     };
 
     const uriToBlob = async (uri: string) => {
-        console.log("URI:", uri)
         const response = await fetch(uri);
         return await response.blob();
     };
 
-    const updatePetObject = () => {
-        setLoading(true)
-        console.log(item)
+    const executeUpdate = (updatedPetObject: any) => {
+        const updates: any = {};
 
-        uriToBlob(image).then((blob) => {
-            uploadBytes(storageRef, blob).then((snapshot) => {
-                console.log('Uploaded a blob!');
-                getDownloadURL(snapshot.ref).then((downloadURL) => {
-                    const petObject = [
-                        {
-                            id: 0,
-                            name: name,
-                            imageUrl: downloadURL
-                        }, {
-                            id: 1,
-                            name: name,
-                            age: age,
-                            type: type,
-                            breed: breed,
-                            color: color,
-                        }
-                    ]
+        updates["users/" + userData.id + "/pet/0"] = updatedPetObject[0];
+        updates["users/" + userData.id + "/pet/1"] = updatedPetObject[1];
 
-                    set(userRef, petObject).then(() => {
-                        console.log("Pet object added successfully!")
-                        setLoading(false)
-                    }).catch((error) => {
-                        console.log("Failed to add pet object:", error);
-                        setLoading(false);
-                    });
-                }).catch((error) => {
-                    console.log("Failed to get download URL", error);
-                });
-            }).catch((error) => {
-                console.log("Error uploading file:", error);
-                setLoading(false);
-            });
+        update(ref(FIREBASE_DATABASE), updates).then(() => {
+            checkForPets();
+            setLoading(false)
+            setEditView(false)
+            setFieldsUpdated(false)
+            Alert.alert("Success", "Pet updated successfully!");
         }).catch((error) => {
-            console.log("Error converting URI to blob:", error);
+            console.error("Failed to update pet object:", error);
             setLoading(false);
         });
+    }
+
+    const updatePetObject = () => {
+        setLoading(true)
+        const updatedPetObject = [
+            {
+                id: 0,
+                name: name,
+                imageUrl: image
+            }, {
+                id: 1,
+                name: name,
+                age: age,
+                type: type,
+                breed: breed,
+                color: color,
+                imageUrl: image
+            }
+        ]
+
+        if (image !== item.imageUrl) {
+            uriToBlob(image).then((blob) => {
+                uploadBytes(storageRef, blob).then((snapshot) => {
+                    getDownloadURL(snapshot.ref).then((downloadURL) => {
+                        updatedPetObject[0].imageUrl = downloadURL;
+                        updatedPetObject[1].imageUrl = downloadURL;
+                        executeUpdate(updatedPetObject);
+
+                    }).catch((error) => {
+                        console.error("Failed to get download URL", error);
+                    });
+                }).catch((error) => {
+                    console.error("Error uploading file:", error);
+                    setLoading(false);
+                });
+            }).catch((error) => {
+                console.error("Error converting URI to blob:", error);
+                setLoading(false);
+            });
+        } else {
+            executeUpdate(updatedPetObject);
+        }
     }
 
     useEffect(() => {
@@ -198,11 +228,12 @@ const PetViewItem = ({item}: any, {userRef}: any) => {
                                 <TouchableOpacity style={styles.button} onPress={pickImage}>
                                     <ThemedText>Update image</ThemedText>
                                 </TouchableOpacity>
-                                {image && <Check style={styles.icon}/>}
+                                {(image !== item.imageUrl && fieldsUpdated) && <Check style={styles.icon}/>}
                             </View>
+                            {loading && <ActivityIndicator size="small" color="#0000ff"/>}
                             <TouchableOpacity
                                 style={[styles.submitButton, fieldsUpdated ? styles.submitButtonEnabled : styles.submitButtonDisabled]}
-                                disabled={!fieldsUpdated} onPress={updatePetObject}>
+                                disabled={!fieldsUpdated} onPress={() => updatePetObject()}>
                                 <ThemedText>Submit</ThemedText>
                             </TouchableOpacity>
                         </View>}
