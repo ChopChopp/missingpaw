@@ -9,8 +9,7 @@ const PetViewItem = ({item}: any) => {
     return (
         <View style={[styles.container, {width}]}>
             {item.id === 1 ? (
-                <View style={{flex: 0.3}}>
-                    <ThemedText style={styles.title}>{item.name}</ThemedText>
+                <View style={styles.petDetails}>
                     <ThemedText style={styles.description}>Age: {item.age}</ThemedText>
                     <ThemedText style={styles.description}>Breed: {item.breed}</ThemedText>
                     <ThemedText style={styles.description}>Color: {item.color}</ThemedText>
@@ -34,8 +33,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
     },
     image: {
-        width: '100%',
+        width: '95%',
         aspectRatio: 1,
+        borderRadius: 10
     },
     title: {
         fontWeight: "800",
@@ -50,7 +50,15 @@ const styles = StyleSheet.create({
     },
     petContainer: {
         justifyContent: "center",
-        backgroundColor: "#8e8e93",
+        borderRadius: 20
+    },
+    petDetails: {
+        backgroundColor: "#8c8c8c",
+        width: '95%',
+        height: '73.5%',
+        marginTop: 50,
+        borderRadius: 6,
+        justifyContent: "flex-start"
     }
 });
 
