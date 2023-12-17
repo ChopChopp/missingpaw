@@ -9,10 +9,10 @@ import {
   Button,
   TextInput,
   StyleSheet,
-  ActivityIndicator,
+  ActivityIndicator, Alert,
 } from "react-native";
 
-const Login = () => {
+const Login = ({fetchUserData}: any) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,11 +23,11 @@ const Login = () => {
   const signIn = async () => {
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-
-      alert("Logged in successfully!");
+      const response = await signInWithEmailAndPassword(auth, email, password);
+      fetchUserData(response.user.uid);
+      Alert.alert("Success","Logged in successfully!");
     } catch (error: any) {
-      alert("Sign in  failed: " + error);
+      Alert.alert("Failure","Sign in  failed: " + error);
     } finally {
       setLoading(false);
     }

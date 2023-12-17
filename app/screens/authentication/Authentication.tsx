@@ -13,7 +13,7 @@ const Authentication = ({fetchUserData}: any) => {
     <SafeAreaView style={styles.container}>
       <Text style={[styles.title, {color: textColor}]}>Missing Paw</Text>
 
-      {showRegister ? <Register fetchUserData={fetchUserData} /> : <Login />}
+      {showRegister ? <Register fetchUserData={fetchUserData} /> : <Login fetchUserData={fetchUserData} />}
       <Button
         title={showRegister ? "Switch to Login" : "Switch to Register"}
         onPress={() => setShowRegister(!showRegister)}

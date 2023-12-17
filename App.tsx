@@ -34,18 +34,13 @@ const App = () => {
     const fetchUserData = async (uid: string) => {
         const userRef = ref(FIREBASE_DATABASE, "users/" + uid);
         try {
-            console.log("userRef")
-            console.log(userRef)
-            console.log(uid)
             const snapshot = await get(userRef);
-            console.log("snapshot")
-            console.log(snapshot)
             if (snapshot.exists()) {
                 setUserData(snapshot.val());
             } else {
                 setUserData(null);
                 Alert.alert("Error", "No data available for this user.");
-                console.log("No data available for this user.");
+                console.error("No data available for this user.");
             }
         } catch (error) {
             Alert.alert("Error", "Error fetching user data:" + error);
