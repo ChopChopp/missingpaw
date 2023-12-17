@@ -85,22 +85,22 @@ const AddPet = ({userData, setShowAddPet}: any) => {
                     ]
 
                     set(userRef, petObject).then(() => {
-                        console.log("Pet object added successfully!")
+                        console.info("Pet object added successfully!")
                         setLoading(false)
                         setShowAddPet(false)
                     }).catch((error) => {
-                        console.log("Failed to add pet object:", error);
+                        console.error("Failed to add pet object:", error);
                         setLoading(false);
                     });
                 }).catch((error) => {
-                    console.log("Failed to get download URL", error);
+                    console.error("Failed to get download URL", error);
                 });
             }).catch((error) => {
-                console.log("Error uploading file:", error);
+                console.error("Error uploading file:", error);
                 setLoading(false);
             });
         }).catch((error) => {
-            console.log("Error converting URI to blob:", error);
+            console.error("Error converting URI to blob:", error);
             setLoading(false);
         });
     }
