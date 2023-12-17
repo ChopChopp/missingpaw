@@ -1,41 +1,71 @@
 import React, {useState, useRef} from "react";
-import {StyleSheet, View, FlatList, Animated, TouchableOpacity, Text, Alert, useColorScheme} from "react-native";
+import {
+    StyleSheet,
+    View,
+    FlatList,
+    Animated,
+    TouchableOpacity,
+    Text,
+    Alert,
+    useColorScheme,
+    ActivityIndicator
+} from "react-native";
 import Paginator from "./Paginator";
 import PetViewMeta from "./petViewElements/PetViewMeta";
 import PetViewDetails from "./petViewElements/PetViewDetails";
-import { LinearGradient } from 'expo-linear-gradient';
+import {LinearGradient} from 'expo-linear-gradient';
 import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
+import {ref, update} from "firebase/database";
+import {FIREBASE_DATABASE} from "../../../../../../FirebaseConfig";
 
 const PetView = ({pet, userData, checkForPets}: any) => {
     const backgroundColor = useColorScheme() === 'dark' ? DarkTheme.colors.background : LightTheme.colors.background;
 
     const scrollX = useRef(new Animated.Value(0)).current;
     const slidesRef = useRef(null);
-    const [missing, setMissing] = useState(pet[0].missing)
+    const [loading, setLoading] = useState(false)
 
     const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
 
     const handleMissing = () => {
-        missing ? Alert.alert("Pet found", "Your pet will be marked as found.\n\n" +
-                "Other people in your area will no longer be able to see your pet in their timeline.", [{
+        const updates: any = {};
+
+        pet[0].missing ? Alert.alert("Pet found", "Your pet will be marked as found.\n\nOther people in your area will no longer be able to see your pet in their timeline.", [{
                 text: "Cancel",
                 style: "cancel",
             }, {
                 text: "Mark as found",
                 onPress: () => {
-                    setMissing(false)
-                    Alert.alert("Found", "Your pet has been marked as found.\n\n" +
-                        "Other people in your area are no longer able to see your pet in their timeline.")
+                    setLoading(true)
+                    updates["users/" + userData.id + "/pet/0/missing"] = false;
+
+                    update(ref(FIREBASE_DATABASE), updates).then(() => {
+                        checkForPets();
+                        Alert.alert("Found", "Your pet has been marked as found.\n\nOther people in your area are no longer able to see your pet in their timeline.")
+                        setLoading(false)
+                    }).catch((error) => {
+                        Alert.alert("Error", "Failed to update pet object:\n\n" + error)
+                        console.error("Failed to update pet object:", error);
+                        setLoading(false)
+                    });
                 }
             }]) :
-            Alert.prompt("Report missing", "Are you sure you want to report your pet as missing?\n\n" +
-                "Pet details will be posted publicly.\n\nOther people will be able to aid you with your search.\n\n" +
-                "Type \"Missing\" to confirm.",
+            Alert.prompt("Report missing", "Are you sure you want to report your pet as missing?\n\nPet details will be posted publicly.\n\nOther people will be able to aid you with your search.\n\nType \"Missing\" to confirm.",
                 (event) => {
                     if (event === "Missing") {
-                        setMissing(true)
-                        Alert.alert("Reported", "Your pet has been reported as missing.\n\n" +
-                            "Other people in your area will be able to see your pet in their timeline.")
+                        setLoading(true)
+                        updates["users/" + userData.id + "/pet/0/missing"] = true;
+
+                        update(ref(FIREBASE_DATABASE), updates).then(() => {
+                            checkForPets();
+                            Alert.alert("Reported", "Your pet has been reported as missing.\n\nOther people in your area will be able to see your pet in their timeline.")
+                            setLoading(false)
+                        }).catch((error) => {
+                            Alert.alert("Error", "Failed to update pet object:\n\n" + error)
+                            console.error("Failed to update pet object:", error);
+                            setLoading(false)
+                        });
+
                     } else {
                         Alert.alert("Mistyped", "Your pet has not been reported as missing.")
                     }
@@ -44,7 +74,7 @@ const PetView = ({pet, userData, checkForPets}: any) => {
 
     return (
         <LinearGradient
-            colors={missing ? ['#c05252', backgroundColor] : ['rgba(48,209,88,0.75)', backgroundColor]}
+            colors={pet[0].missing ? ['#c05252', backgroundColor] : ['rgba(48,209,88,0.75)', backgroundColor]}
             start={[1, 1]}
             end={[1, 0]}
             style={styles.container}
@@ -69,13 +99,14 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                 />
             </View>
             <Paginator scrollX={scrollX}/>
-            <TouchableOpacity style={[styles.btn, missing ? styles.btnPetSave : styles.btnReportMissing]}
+            {loading && <ActivityIndicator size="small" color="#0000ff"/>}
+            <TouchableOpacity style={[styles.btn, pet[0].missing ? styles.btnPetSave : styles.btnReportMissing]}
                               onPress={handleMissing}>
                 <Text
-                    style={styles.btnText}>{missing ? pet[0].name + " found!" : "Report " + pet[0].name + " missing!"}</Text>
+                    style={styles.btnText}>{pet[0].missing ? pet[0].name + " found!" : "Report " + pet[0].name + " missing!"}</Text>
             </TouchableOpacity>
             <Text style={styles.petStatus}>
-                {missing ? pet[0].name + " is currently marked as missing" : pet[0].name + " is currently safe at home"}
+                {pet[0].missing ? pet[0].name + " is currently marked as missing" : pet[0].name + " is currently safe at home"}
             </Text>
         </LinearGradient>
     );
