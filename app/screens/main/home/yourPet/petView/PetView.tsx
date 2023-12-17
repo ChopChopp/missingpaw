@@ -1,10 +1,14 @@
 import React, {useState, useRef} from "react";
-import {StyleSheet, View, FlatList, Animated, TouchableOpacity, Text, Alert} from "react-native";
+import {StyleSheet, View, FlatList, Animated, TouchableOpacity, Text, Alert, useColorScheme} from "react-native";
 import Paginator from "./Paginator";
 import PetViewMeta from "./petViewElements/PetViewMeta";
 import PetViewDetails from "./petViewElements/PetViewDetails";
+import { LinearGradient } from 'expo-linear-gradient';
+import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
 
 const PetView = ({pet, userData, checkForPets}: any) => {
+    const backgroundColor = useColorScheme() === 'dark' ? DarkTheme.colors.background : LightTheme.colors.background;
+
     const scrollX = useRef(new Animated.Value(0)).current;
     const slidesRef = useRef(null);
     const [missing, setMissing] = useState(pet[0].missing)
@@ -39,8 +43,12 @@ const PetView = ({pet, userData, checkForPets}: any) => {
     }
 
     return (
-
-        <View style={[styles.container, missing ? styles.containerMissing : styles.containerAtHome]}>
+        <LinearGradient
+            colors={missing ? ['#c05252', backgroundColor] : ['rgba(48,209,88,0.75)', backgroundColor]}
+            start={[1, 1]}
+            end={[1, 0]}
+            style={styles.container}
+        >
             <View style={{flex: 3}}>
                 <FlatList data={pet} renderItem={({item}) =>
                     <>
@@ -69,7 +77,7 @@ const PetView = ({pet, userData, checkForPets}: any) => {
             <Text style={styles.petStatus}>
                 {missing ? pet[0].name + " is currently marked as missing" : pet[0].name + " is currently safe at home"}
             </Text>
-        </View>
+        </LinearGradient>
     );
 };
 
