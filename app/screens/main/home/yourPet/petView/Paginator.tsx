@@ -8,8 +8,6 @@ const Paginator = ({scrollX}: any) => {
     return (
         <View style={{flexDirection: 'row', height: 64}}>
             {Array.from({length: 2}).map((_, i) => {
-                console.log(i);
-
                 const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
                 const dotWidth = scrollX.interpolate({
                     inputRange,
