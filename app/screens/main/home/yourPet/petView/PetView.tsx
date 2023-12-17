@@ -31,7 +31,7 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                           ref={slidesRef}
                 />
             </View>
-            <Paginator data={pet} scrollX={scrollX}/>
+            <Paginator scrollX={scrollX}/>
             <TouchableOpacity style={styles.reportMissingButton} onPress={() => {
                 console.log('REPORT MISSING PRESSED')
             }}>

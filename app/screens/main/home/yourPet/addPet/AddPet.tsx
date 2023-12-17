@@ -79,7 +79,8 @@ const AddPet = ({userData, setShowAddPet}: any) => {
                             type: type,
                             breed: breed,
                             color: color,
-                            imageUrl: downloadURL
+                            imageUrl: downloadURL,
+                            missing: false
                         }
                     ]
 
