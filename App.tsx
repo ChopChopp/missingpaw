@@ -62,6 +62,7 @@ const App = () => {
     useEffect(() => {
         onAuthStateChanged(FIREBASE_AUTH, (user) => {
             setUser(user);
+            user === null ? setUserData(null) : fetchUserData(user.uid);
         });
     }, []);
 
