@@ -3,27 +3,24 @@ import {StyleSheet, View, FlatList, Animated, TouchableOpacity, Text, Alert} fro
 import Paginator from "./Paginator";
 import PetViewMeta from "./petViewElements/PetViewMeta";
 import PetViewDetails from "./petViewElements/PetViewDetails";
-import ThemedText from "../../../../../helper/themedText/ThemedText";
 
 const PetView = ({pet, userData, checkForPets}: any) => {
     const scrollX = useRef(new Animated.Value(0)).current;
     const slidesRef = useRef(null);
     const [missing, setMissing] = useState(pet[0].missing)
-    console.log("MISSING: " + missing)
 
     const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
 
     const handleMissing = () => {
-        missing ? Alert.alert("Pet found!", "Your pet will be marked as found.\n\n" +
+        missing ? Alert.alert("Pet found", "Your pet will be marked as found.\n\n" +
                 "Other people in your area will no longer be able to see your pet in their timeline.", [{
                 text: "Cancel",
-                onPress: () => console.log("Cancel Pressed"),
                 style: "cancel",
             }, {
                 text: "Mark as found",
                 onPress: () => {
                     setMissing(false)
-                    Alert.alert("Successfully saved", "Your pet has been marked as found.\n\n" +
+                    Alert.alert("Found", "Your pet has been marked as found.\n\n" +
                         "Other people in your area are no longer able to see your pet in their timeline.")
                 }
             }]) :
@@ -33,7 +30,7 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                 (event) => {
                     if (event === "Missing") {
                         setMissing(true)
-                        Alert.alert("Successfully reported", "Your pet has been reported as missing.\n\n" +
+                        Alert.alert("Reported", "Your pet has been reported as missing.\n\n" +
                             "Other people in your area will be able to see your pet in their timeline.")
                     } else {
                         Alert.alert("Mistyped", "Your pet has not been reported as missing.")
@@ -66,11 +63,12 @@ const PetView = ({pet, userData, checkForPets}: any) => {
             <Paginator scrollX={scrollX}/>
             <TouchableOpacity style={[styles.btn, missing ? styles.btnPetSave : styles.btnReportMissing]}
                               onPress={handleMissing}>
-                <Text style={styles.btnText}>{missing ? "Pet found!" : "Report Missing!"}</Text>
+                <Text
+                    style={styles.btnText}>{missing ? pet[0].name + " found!" : "Report " + pet[0].name + " missing!"}</Text>
             </TouchableOpacity>
-            <ThemedText style={styles.petStatus}>
+            <Text style={styles.petStatus}>
                 {missing ? pet[0].name + " is currently marked as missing" : pet[0].name + " is currently safe at home"}
-            </ThemedText>
+            </Text>
         </View>
     );
 };
@@ -83,10 +81,10 @@ const styles = StyleSheet.create({
         gap: -20,
     },
     containerMissing: {
-        backgroundColor: "#8c6868"
+        backgroundColor: "#c05252"
     },
     containerAtHome: {
-        backgroundColor: "#717c6b"
+        backgroundColor: "#B0D9B1"
     },
     petStatus: {
         fontSize: 12,
