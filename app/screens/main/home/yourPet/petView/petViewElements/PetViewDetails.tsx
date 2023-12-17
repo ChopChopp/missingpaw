@@ -38,6 +38,7 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
     const [breed, setBreed] = useState(item.breed);
     const [color, setColor] = useState(item.color);
     const [image, setImage] = useState(item.imageUrl);
+    const [missing] = useState(item.missing);
 
     const [loading, setLoading] = useState(false);
 
@@ -112,7 +113,8 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
                 type: type,
                 breed: breed,
                 color: color,
-                imageUrl: image
+                imageUrl: image,
+                missing: missing
             }
         ]
 

@@ -2,12 +2,14 @@ import React from 'react';
 
 import {View, StyleSheet, Animated, useWindowDimensions} from 'react-native';
 
-const Paginator = ({data, scrollX}: any) => {
+const Paginator = ({scrollX}: any) => {
     const {width} = useWindowDimensions();
 
     return (
         <View style={{flexDirection: 'row', height: 64}}>
-            {data.map((_: any, i: number) => {
+            {Array.from({length: 2}).map((_, i) => {
+                console.log(i);
+
                 const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
                 const dotWidth = scrollX.interpolate({
                     inputRange,
@@ -22,7 +24,6 @@ const Paginator = ({data, scrollX}: any) => {
                 });
 
                 return <Animated.View style={[styles.dot, {width: dotWidth, opacity}]} key={i.toString()}/>;
-
             })}
         </View>
     );
