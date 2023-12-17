@@ -1,5 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import {
+    ActivityIndicator,
     Image,
     StyleSheet,
     useWindowDimensions,
@@ -9,12 +10,23 @@ import ThemedText from "../../../../../../helper/themedText/ThemedText";
 
 const PetViewMeta = ({item}: any) => {
     const {width} = useWindowDimensions();
+    const [loading, setLoading] = useState(false)
+    const ActivityIndicatorWrapper = () => {
+        if (!loading) return null;
+        return (
+            <View style={styles.loading}>
+                <ActivityIndicator size="small" color="#0000ff"/>
+            </View>
+        );
+    }
 
     return (
         <View style={[styles.container, {width}]}>
             <View style={styles.petContainer}>
                 <ThemedText style={styles.title}>{item.name}</ThemedText>
-                <Image source={{uri: item.imageUrl}} style={styles.image}/>
+                <ActivityIndicatorWrapper />
+                <Image source={{uri: item.imageUrl}} style={styles.image} onLoadStart={() => setLoading(true)}
+                       onLoadEnd={() => setLoading(false)}/>
             </View>
 
         </View>
@@ -26,6 +38,16 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: "center",
+    },
+    loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 2,
     },
     image: {
         width: '95%',
