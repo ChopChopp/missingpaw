@@ -1,25 +1,23 @@
-import React, {useState, useRef} from "react";
+import React, {useRef} from "react";
 import {StyleSheet, View, FlatList, Animated, TouchableOpacity, Text} from "react-native";
-import PetViewItem from "./PetViewItem";
 import Paginator from "./Paginator";
+import PetViewMeta from "./petViewElements/PetViewMeta";
+import PetViewDetails from "./petViewElements/PetViewDetails";
 
 const PetView = ({pet, userData, checkForPets}: any) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
     const scrollX = useRef(new Animated.Value(0)).current;
     const slidesRef = useRef(null);
-
-    const viewableItemsChanged = useRef(({viewableItems}: any) => {
-        setCurrentIndex(viewableItems[0].index);
-    }).current;
 
     const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
 
     return (
         <View style={styles.container}>
             <View style={{flex: 3}}>
-                <FlatList data={pet} renderItem={({item}) => <PetViewItem item={item} currentIndex={currentIndex}
-                                                                          userData={userData}
-                                                                          checkForPets={checkForPets}/>}
+                <FlatList data={pet} renderItem={({item}) =>
+                    <>
+                        <PetViewMeta item={item}/>
+                        <PetViewDetails item={item} userData={userData} checkForPets={checkForPets}/>
+                    </>}
                           horizontal
                           showsHorizontalScrollIndicator={false}
                           pagingEnabled
@@ -29,7 +27,6 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                               useNativeDriver: false
                           })}
                           scrollEventThrottle={32}
-                          onViewableItemsChanged={viewableItemsChanged}
                           viewabilityConfig={viewConfig}
                           ref={slidesRef}
                 />

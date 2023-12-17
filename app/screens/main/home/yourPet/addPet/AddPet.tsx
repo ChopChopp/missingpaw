@@ -75,10 +75,6 @@ const AddPet = ({userData, setShowAddPet}: any) => {
                         {
                             id: 0,
                             name: name,
-                            imageUrl: downloadURL
-                        }, {
-                            id: 1,
-                            name: name,
                             age: age,
                             type: type,
                             breed: breed,

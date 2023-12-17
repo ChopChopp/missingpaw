@@ -2,7 +2,6 @@ import React, {useEffect, useState} from "react";
 import {
     ActivityIndicator,
     Alert,
-    Image,
     StyleSheet,
     TextInput,
     TouchableOpacity,
@@ -10,19 +9,19 @@ import {
     useWindowDimensions,
     View
 } from "react-native";
-import ThemedText from "../../../../../helper/themedText/ThemedText";
-import Dog from "../../../../../helper/icons/Dog";
-import Color from "../../../../../helper/icons/Color";
-import Breed from "../../../../../helper/icons/Breed";
-import DogTag from "../../../../../helper/icons/DogTag";
-import Paw from "../../../../../helper/icons/Paw";
-import Edit from "../../../../../helper/icons/Edit";
-import Check from "../../../../../helper/icons/Check";
-import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
+import ThemedText from "../../../../../../helper/themedText/ThemedText";
+import Dog from "../../../../../../helper/icons/Dog";
+import Color from "../../../../../../helper/icons/Color";
+import Breed from "../../../../../../helper/icons/Breed";
+import DogTag from "../../../../../../helper/icons/DogTag";
+import Paw from "../../../../../../helper/icons/Paw";
+import Edit from "../../../../../../helper/icons/Edit";
+import Check from "../../../../../../helper/icons/Check";
+import {DarkTheme, LightTheme} from "../../../../../../helper/theme/Theme";
+import {FIREBASE_DATABASE, STORAGE} from "../../../../../../../FirebaseConfig";
 import * as ImagePicker from "expo-image-picker";
 import {getDownloadURL, ref as strgRef, uploadBytes} from "firebase/storage";
 import {ref, update} from "firebase/database";
-import {FIREBASE_DATABASE, STORAGE} from "../../../../../../FirebaseConfig";
 
 const PetViewItem = ({item, userData, checkForPets}: any) => {
     const storageRef = strgRef(STORAGE, userData.id)
@@ -90,7 +89,6 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
         const updates: any = {};
 
         updates["users/" + userData.id + "/pet/0"] = updatedPetObject[0];
-        updates["users/" + userData.id + "/pet/1"] = updatedPetObject[1];
 
         update(ref(FIREBASE_DATABASE), updates).then(() => {
             checkForPets();
@@ -110,10 +108,6 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
             {
                 id: 0,
                 name: name,
-                imageUrl: image
-            }, {
-                id: 1,
-                name: name,
                 age: age,
                 type: type,
                 breed: breed,
@@ -127,7 +121,6 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
                 uploadBytes(storageRef, blob).then((snapshot) => {
                     getDownloadURL(snapshot.ref).then((downloadURL) => {
                         updatedPetObject[0].imageUrl = downloadURL;
-                        updatedPetObject[1].imageUrl = downloadURL;
                         executeUpdate(updatedPetObject);
 
                     }).catch((error) => {
@@ -152,100 +145,92 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
 
     return (
         <View style={[styles.container, {width}]}>
-            {item.id === 1 ? (
-                <View style={styles.petDetails}>
+            <View style={styles.petDetails}>
 
-                    <View style={styles.header}>
-                        <ThemedText style={styles.subTitle}>Pet details</ThemedText>
-                        <TouchableOpacity onPress={() => setEditView(!editView)}>
-                            <Edit style={styles.editIcon}/>
-                        </TouchableOpacity>
-                    </View>
+                <View style={styles.header}>
+                    <ThemedText style={styles.subTitle}>Pet details</ThemedText>
+                    <TouchableOpacity onPress={() => setEditView(!editView)}>
+                        <Edit style={styles.editIcon}/>
+                    </TouchableOpacity>
+                </View>
 
-                    <View style={styles.petDetailsElement}>
-                        <DogTag style={styles.icon}/>
-                        <ThemedText style={styles.key}>Name: </ThemedText>
-                        {!editView ? <ThemedText style={styles.value}>{item.name}</ThemedText>
-                            : <TextInput
-                                style={[styles.input, {color: textColor}]}
-                                value={name}
-                                onChangeText={name => setName(name)}
-                                keyboardType="default"
-                            />}
-                    </View>
+                <View style={styles.petDetailsElement}>
+                    <DogTag style={styles.icon}/>
+                    <ThemedText style={styles.key}>Name: </ThemedText>
+                    {!editView ? <ThemedText style={styles.value}>{item.name}</ThemedText>
+                        : <TextInput
+                            style={[styles.input, {color: textColor}]}
+                            value={name}
+                            onChangeText={name => setName(name)}
+                            keyboardType="default"
+                        />}
+                </View>
 
-                    <View style={styles.petDetailsElement}>
-                        <Dog style={styles.icon}/>
-                        <ThemedText style={styles.key}>Age: </ThemedText>
-                        {!editView ? <ThemedText style={styles.value}>{item.age}</ThemedText>
-                            : <TextInput
-                                style={[styles.input, {color: textColor}]}
-                                value={age}
-                                onChangeText={age => setAge(age)}
-                                keyboardType="numeric"
-                            />}
-                    </View>
+                <View style={styles.petDetailsElement}>
+                    <Dog style={styles.icon}/>
+                    <ThemedText style={styles.key}>Age: </ThemedText>
+                    {!editView ? <ThemedText style={styles.value}>{item.age}</ThemedText>
+                        : <TextInput
+                            style={[styles.input, {color: textColor}]}
+                            value={age}
+                            onChangeText={age => setAge(age)}
+                            keyboardType="numeric"
+                        />}
+                </View>
 
-                    <View style={styles.petDetailsElement}>
-                        <Breed style={styles.icon}/>
-                        <ThemedText style={styles.key}>Breed: </ThemedText>
-                        {!editView ? <ThemedText style={styles.value}>{item.breed}</ThemedText>
-                            : <TextInput
-                                style={[styles.input, {color: textColor}]}
-                                value={breed}
-                                onChangeText={breed => setBreed(breed)}
-                                keyboardType="default"
-                            />}
-                    </View>
+                <View style={styles.petDetailsElement}>
+                    <Breed style={styles.icon}/>
+                    <ThemedText style={styles.key}>Breed: </ThemedText>
+                    {!editView ? <ThemedText style={styles.value}>{item.breed}</ThemedText>
+                        : <TextInput
+                            style={[styles.input, {color: textColor}]}
+                            value={breed}
+                            onChangeText={breed => setBreed(breed)}
+                            keyboardType="default"
+                        />}
+                </View>
 
-                    <View style={styles.petDetailsElement}>
-                        <Color style={styles.icon}/>
-                        <ThemedText style={styles.key}>Color: </ThemedText>
-                        {!editView ? <ThemedText style={styles.value}>{item.color}</ThemedText>
-                            : <TextInput
-                                style={[styles.input, {color: textColor}]}
-                                value={color}
-                                onChangeText={color => setColor(color)}
-                                keyboardType="default"
-                            />}
-                    </View>
+                <View style={styles.petDetailsElement}>
+                    <Color style={styles.icon}/>
+                    <ThemedText style={styles.key}>Color: </ThemedText>
+                    {!editView ? <ThemedText style={styles.value}>{item.color}</ThemedText>
+                        : <TextInput
+                            style={[styles.input, {color: textColor}]}
+                            value={color}
+                            onChangeText={color => setColor(color)}
+                            keyboardType="default"
+                        />}
+                </View>
 
-                    <View style={styles.petDetailsElement}>
-                        <Paw style={styles.icon}/>
-                        <ThemedText style={styles.key}>Type: </ThemedText>
-                        {!editView ? <ThemedText style={styles.value}>{item.type}</ThemedText>
-                            : <TextInput
-                                style={[styles.input, {color: textColor}]}
-                                value={type}
-                                onChangeText={type => setType(type)}
-                                keyboardType="default"
-                            />}
-                    </View>
+                <View style={styles.petDetailsElement}>
+                    <Paw style={styles.icon}/>
+                    <ThemedText style={styles.key}>Type: </ThemedText>
+                    {!editView ? <ThemedText style={styles.value}>{item.type}</ThemedText>
+                        : <TextInput
+                            style={[styles.input, {color: textColor}]}
+                            value={type}
+                            onChangeText={type => setType(type)}
+                            keyboardType="default"
+                        />}
+                </View>
 
-                    {editView &&
-                        <View style={styles.submitContainer}>
-                            <View style={{flexDirection: "row", gap: 10}}>
-                                <TouchableOpacity style={styles.button} onPress={pickImage}>
-                                    <ThemedText>Update image</ThemedText>
-                                </TouchableOpacity>
-                                {(image !== item.imageUrl && fieldsUpdated) && <Check style={styles.icon}/>}
-                            </View>
-                            {loading && <ActivityIndicator size="small" color="#0000ff"/>}
-                            <TouchableOpacity
-                                style={[styles.submitButton, fieldsUpdated ? styles.submitButtonEnabled : styles.submitButtonDisabled]}
-                                disabled={!fieldsUpdated} onPress={() => updatePetObject()}>
-                                <ThemedText>Submit</ThemedText>
+                {editView &&
+                    <View style={styles.submitContainer}>
+                        <View style={{flexDirection: "row", gap: 10}}>
+                            <TouchableOpacity style={styles.button} onPress={pickImage}>
+                                <ThemedText>Update image</ThemedText>
                             </TouchableOpacity>
-                        </View>}
+                            {(image !== item.imageUrl && fieldsUpdated) && <Check style={styles.icon}/>}
+                        </View>
+                        {loading && <ActivityIndicator size="small" color="#0000ff"/>}
+                        <TouchableOpacity
+                            style={[styles.submitButton, fieldsUpdated ? styles.submitButtonEnabled : styles.submitButtonDisabled]}
+                            disabled={!fieldsUpdated} onPress={() => updatePetObject()}>
+                            <ThemedText>Submit</ThemedText>
+                        </TouchableOpacity>
+                    </View>}
 
-                </View>
-            ) : (
-                <View style={styles.petContainer}>
-                    <ThemedText style={styles.title}>{item.name}</ThemedText>
-                    <Image source={{uri: item.imageUrl}} style={styles.image}/>
-                </View>
-            )}
-
+            </View>
         </View>
     );
 };
