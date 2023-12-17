@@ -1,166 +1,163 @@
-import React, { useState } from "react";
-import { FIREBASE_AUTH, FIREBASE_DATABASE } from "../../../../FirebaseConfig";
-import { ref, set } from "firebase/database";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
+import React, {useState} from "react";
+import {FIREBASE_AUTH, FIREBASE_DATABASE} from "../../../../FirebaseConfig";
+import {ref, set} from "firebase/database";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {createUserWithEmailAndPassword} from "firebase/auth";
 import {
-  View,
-  Text,
-  Button,
-  TextInput,
-  StyleSheet,
-  ActivityIndicator,
+    View,
+    Text,
+    Button,
+    TextInput,
+    StyleSheet,
+    ActivityIndicator,
 } from "react-native";
 
-const Register = () => {
-  // firebase fields
-  const auth = FIREBASE_AUTH;
+const Register = ({fetchUserData}: any) => {
+    const auth = FIREBASE_AUTH;
 
-  // User fields
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [loading, setLoading] = useState(false);
-  const [focus, setFocus] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [focus, setFocus] = useState("");
 
-  const signUp = async () => {
-    if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      setLoading(false);
-      return;
-    }
+    const signUp = async () => {
+        if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            setLoading(false);
+            return;
+        }
 
-    setLoading(true);
-    try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const uid = response.user.uid;
+        setLoading(true);
+        try {
+            const response = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+            const uid = response.user.uid;
 
-      const userData = {
-        id: uid,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-      };
+            const userData = {
+                id: uid,
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+            };
 
-      const userRef = ref(FIREBASE_DATABASE, "users/" + uid);
-      set(userRef, userData);
+            const userRef = ref(FIREBASE_DATABASE, "users/" + uid);
+            await set(userRef, userData);
+            fetchUserData(uid);
 
-      alert("User created and data saved!");
-      console.log(response);
+            alert("User created and data saved!");
 
-    } catch (error: any) {
-      alert("Sign up  failed: " + error);
-    } finally {
-      setLoading(false);
-    }
-  };
+        } catch (error: any) {
+            alert("Sign up  failed: " + error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  return (
-    <KeyboardAwareScrollView
-      style={styles.container}
-      contentContainerStyle={styles.inner}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled={true}
-      extraScrollHeight={focus === "email" ? 100 : 50}
-      keyboardOpeningTime={0}
-    >
-      <>
-        <Text style={styles.title}>Register</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="First name"
-          value={firstName}
-          onChangeText={(text) => setFirstName(text)}
-          autoCapitalize="none"
-          keyboardType="default"
-          onFocus={() => setFocus("firstname")}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Last name"
-          value={lastName}
-          onChangeText={(text) => setLastName(text)}
-          autoCapitalize="none"
-          keyboardType="default"
-          onFocus={() => setFocus("lastname")}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-          autoCapitalize="none"
-          keyboardType="email-address"
-          onFocus={() => setFocus("email")}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Password"
-          value={password}
-          onChangeText={(password) => setPassword(password)}
-          secureTextEntry
-          onFocus={() => setFocus("password")}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirm password"
-          value={confirmPassword}
-          onChangeText={(password) => setConfirmPassword(password)}
-          secureTextEntry
-          onFocus={() => setFocus("confirmPassword")}
-        />
-
-        <View style={styles.actionContainer}>
-          {loading ? (
-            <ActivityIndicator size="large" color="#0000ff" />
-          ) : (
+    return (
+        <KeyboardAwareScrollView
+            style={styles.container}
+            contentContainerStyle={styles.inner}
+            resetScrollToCoords={{x: 0, y: 0}}
+            scrollEnabled={true}
+            extraScrollHeight={focus === "email" ? 100 : 50}
+            keyboardOpeningTime={0}
+        >
             <>
-              <Button title="Create account" onPress={signUp} />
+                <Text style={styles.title}>Register</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="First name"
+                    value={firstName}
+                    onChangeText={(text) => setFirstName(text)}
+                    autoCapitalize="none"
+                    keyboardType="default"
+                    onFocus={() => setFocus("firstname")}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Last name"
+                    value={lastName}
+                    onChangeText={(text) => setLastName(text)}
+                    autoCapitalize="none"
+                    keyboardType="default"
+                    onFocus={() => setFocus("lastname")}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                    onFocus={() => setFocus("email")}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    value={password}
+                    onChangeText={(password) => setPassword(password)}
+                    secureTextEntry
+                    onFocus={() => setFocus("password")}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Confirm password"
+                    value={confirmPassword}
+                    onChangeText={(password) => setConfirmPassword(password)}
+                    secureTextEntry
+                    onFocus={() => setFocus("confirmPassword")}
+                />
+
+                <View style={styles.actionContainer}>
+                    {loading ? (
+                        <ActivityIndicator size="large" color="#0000ff"/>
+                    ) : (
+                        <>
+                            <Button title="Create account" onPress={signUp}/>
+                        </>
+                    )}
+                </View>
             </>
-          )}
-        </View>
-      </>
-    </KeyboardAwareScrollView>
-  );
+        </KeyboardAwareScrollView>
+    );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  inner: {
-    padding: 24,
-    flexGrow: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 32,
-  },
-  input: {
-    width: "80%",
-    height: 48,
-    padding: 12,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 4,
-    marginBottom: 16,
-  },
-  actionContainer: {
-    height: 100,
-    justifyContent: "center",
-    alignItems: "center",
-  },
+    container: {
+        flex: 1,
+    },
+    inner: {
+        padding: 24,
+        flexGrow: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: "bold",
+        marginBottom: 32,
+    },
+    input: {
+        width: "80%",
+        height: 48,
+        padding: 12,
+        borderWidth: 1,
+        borderColor: "#ccc",
+        borderRadius: 4,
+        marginBottom: 16,
+    },
+    actionContainer: {
+        height: 100,
+        justifyContent: "center",
+        alignItems: "center",
+    },
 });
 
 export default Register;

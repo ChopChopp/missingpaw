@@ -5,7 +5,7 @@ import Login from "./login/Login";
 import Register from "./register/Register";
 import {DarkTheme, LightTheme} from "../../helper/theme/Theme";
 
-const Authentication = ({}: any) => {
+const Authentication = ({fetchUserData}: any) => {
   const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
   const [showRegister, setShowRegister] = useState(true);
 
@@ -13,7 +13,7 @@ const Authentication = ({}: any) => {
     <SafeAreaView style={styles.container}>
       <Text style={[styles.title, {color: textColor}]}>Missing Paw</Text>
 
-      {showRegister ? <Register /> : <Login />}
+      {showRegister ? <Register fetchUserData={fetchUserData} /> : <Login />}
       <Button
         title={showRegister ? "Switch to Login" : "Switch to Register"}
         onPress={() => setShowRegister(!showRegister)}
