@@ -31,7 +31,7 @@ const AddPet = ({userData, setShowAddPet}: any) => {
     const [type, setType] = useState("");
     const [breed, setBreed] = useState("");
     const [color, setColor] = useState("");
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState("");
 
     const [loading, setLoading] = useState(false);
 
@@ -80,7 +80,8 @@ const AddPet = ({userData, setShowAddPet}: any) => {
                             breed: breed,
                             color: color,
                             imageUrl: downloadURL,
-                            missing: false
+                            missing: false,
+                            missingSince: 0
                         }
                     ]
 

@@ -38,6 +38,7 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                 onPress: () => {
                     setLoading(true)
                     updates["users/" + userData.id + "/pet/0/missing"] = false;
+                    updates["users/" + userData.id + "/pet/0/missingSince"] = 0;
 
                     update(ref(FIREBASE_DATABASE), updates).then(() => {
                         checkForPets();
@@ -55,6 +56,7 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                     if (event === "Missing") {
                         setLoading(true)
                         updates["users/" + userData.id + "/pet/0/missing"] = true;
+                        updates["users/" + userData.id + "/pet/0/missingSince"] = new Date().getTime();
 
                         update(ref(FIREBASE_DATABASE), updates).then(() => {
                             checkForPets();

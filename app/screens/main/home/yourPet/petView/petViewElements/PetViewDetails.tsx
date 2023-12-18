@@ -39,6 +39,7 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
     const [color, setColor] = useState(item.color);
     const [image, setImage] = useState(item.imageUrl);
     const [missing] = useState(item.missing);
+    const [missingSince] = useState(item.missingSince);
 
     const [loading, setLoading] = useState(false);
 
@@ -114,7 +115,8 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
                 breed: breed,
                 color: color,
                 imageUrl: image,
-                missing: missing
+                missing: missing,
+                missingSince: missingSince
             }
         ]
 
@@ -251,7 +253,7 @@ const styles = StyleSheet.create({
     },
     button: {
         paddingHorizontal: 10,
-        backgroundColor: "#646464",
+        backgroundColor: "#838383",
         borderRadius: 5,
     },
     submitButton: {
@@ -269,7 +271,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         padding: 10,
-        backgroundColor: "#606060",
+        backgroundColor: "#727272",
         borderTopLeftRadius: 6,
         borderTopRightRadius: 6,
     },
@@ -294,7 +296,7 @@ const styles = StyleSheet.create({
         borderRadius: 20
     },
     petDetails: {
-        backgroundColor: "#8c8c8c",
+        backgroundColor: "#bbbbbb",
         width: '95%',
         height: '73.5%',
         marginTop: 50,
@@ -303,9 +305,9 @@ const styles = StyleSheet.create({
     },
     petDetailsElement: {
         flexDirection: "row",
-        backgroundColor: "#737373",
+        backgroundColor: "#888787",
         padding: 10,
-        borderTopColor: "#8c8c8c",
+        borderColor: "#bbbbbb",
         borderTopWidth: 1,
     },
     icon: {
