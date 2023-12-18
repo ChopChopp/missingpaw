@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     FlatList,
-    Animated, useColorScheme,
+    Animated, useColorScheme, Text,
 } from "react-native";
 import Paginator from "../../yourPet/petView/Paginator";
 import PetViewMeta from "../../yourPet/petView/petViewElements/PetViewMeta";
@@ -38,6 +38,15 @@ const MissingPetView = ({pet, userData}: any) => {
                       ref={slidesRef}
             />
             <Paginator scrollX={scrollX} height={0} margin={20}/>
+            <Text style={styles.petStatus}>
+                {pet[0].name + " is missing since " + new Date(pet[0].missingSince).toLocaleString('de-CH', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                })}
+            </Text>
             <View style={[styles.underline, {backgroundColor: separatorColor}]}/>
         </View>
     );
@@ -54,6 +63,11 @@ const styles = StyleSheet.create({
         width: '90%',
         marginTop: 50,
         marginBottom: 50
+    },
+    petStatus: {
+        fontSize: 12,
+        paddingBottom: 10,
+        fontStyle: 'italic'
     }
 });
 
