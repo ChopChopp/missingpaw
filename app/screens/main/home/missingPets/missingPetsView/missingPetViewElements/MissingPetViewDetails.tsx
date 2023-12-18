@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         padding: 10,
-        backgroundColor: "#606060",
+        backgroundColor: "#727272",
         borderTopLeftRadius: 6,
         borderTopRightRadius: 6,
     },
@@ -78,9 +78,8 @@ const styles = StyleSheet.create({
         fontSize: 14,
         margin: 5,
     },
-
     petDetails: {
-        backgroundColor: "#8c8c8c",
+        backgroundColor: "#bbbbbb",
         width: '95%',
         height: '87%',
         marginTop: 55,
@@ -89,9 +88,9 @@ const styles = StyleSheet.create({
     },
     petDetailsElement: {
         flexDirection: "row",
-        backgroundColor: "#737373",
+        backgroundColor: "#888787",
         padding: 10,
-        borderTopColor: "#8c8c8c",
+        borderTopColor: "#bbbbbb",
         borderTopWidth: 1,
     },
     icon: {
@@ -104,7 +103,6 @@ const styles = StyleSheet.create({
     value: {
         marginLeft: 'auto',
     },
-
 });
 
 export default PetViewItem;
