@@ -100,7 +100,7 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                           ref={slidesRef}
                 />
             </View>
-            <Paginator scrollX={scrollX}/>
+            <Paginator scrollX={scrollX} height={64} margin={0} />
             {loading && <ActivityIndicator size="small" color="#0000ff"/>}
             <TouchableOpacity style={[styles.btn, pet[0].missing ? styles.btnPetSave : styles.btnReportMissing]}
                               onPress={handleMissing}>
@@ -108,7 +108,14 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                     style={styles.btnText}>{pet[0].missing ? pet[0].name + " found!" : "Report " + pet[0].name + " missing!"}</Text>
             </TouchableOpacity>
             <Text style={styles.petStatus}>
-                {pet[0].missing ? pet[0].name + " is currently marked as missing" : pet[0].name + " is currently safe at home"}
+                {pet[0].missing
+                    ? pet[0].name + " is missing since " + new Date(pet[0].missingSince).toLocaleString('de-CH', {
+                    year: 'numeric',
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: 'numeric',
+                    minute: 'numeric'
+                }) : pet[0].name + " is currently safe at home"}
             </Text>
         </LinearGradient>
     );

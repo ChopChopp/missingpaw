@@ -3,42 +3,42 @@ import {
     StyleSheet,
     View,
     FlatList,
-    Animated,
+    Animated, useColorScheme,
 } from "react-native";
 import Paginator from "../../yourPet/petView/Paginator";
 import PetViewMeta from "../../yourPet/petView/petViewElements/PetViewMeta";
 import MissingPetViewDetails from "./missingPetViewElements/MissingPetViewDetails";
+import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
 
 const MissingPetView = ({pet, userData}: any) => {
+    const separatorColor = useColorScheme() === 'dark' ? DarkTheme.colors.secondary : LightTheme.colors.secondary;
 
     const scrollX = useRef(new Animated.Value(0)).current;
     const slidesRef = useRef(null);
 
     const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
-    // console.log("PET: ", pet)
-    // console.log("USER DATA: ", userData)
+
     return (
         <View style={styles.container}>
-            <View style={{flex: 3}}>
-                <FlatList data={pet} renderItem={({item}) =>
-                    <>
-                        <PetViewMeta item={item}/>
-                        <MissingPetViewDetails item={item} userData={userData}/>
-                    </>}
-                          horizontal
-                          showsHorizontalScrollIndicator={false}
-                          pagingEnabled
-                          bounces={false}
-                          keyExtractor={(item) => item.id}
-                          onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {
-                              useNativeDriver: false
-                          })}
-                          scrollEventThrottle={32}
-                          viewabilityConfig={viewConfig}
-                          ref={slidesRef}
-                />
-            </View>
-            <Paginator scrollX={scrollX}/>
+            <FlatList data={pet} renderItem={({item}) =>
+                <>
+                    <PetViewMeta item={item}/>
+                    <MissingPetViewDetails item={item} userData={userData}/>
+                </>}
+                      horizontal
+                      showsHorizontalScrollIndicator={false}
+                      pagingEnabled
+                      bounces={false}
+                      keyExtractor={(item) => item.id}
+                      onScroll={Animated.event([{nativeEvent: {contentOffset: {x: scrollX}}}], {
+                          useNativeDriver: false
+                      })}
+                      scrollEventThrottle={32}
+                      viewabilityConfig={viewConfig}
+                      ref={slidesRef}
+            />
+            <Paginator scrollX={scrollX} height={0} margin={20}/>
+            <View style={[styles.underline, {backgroundColor: separatorColor}]}/>
         </View>
     );
 };
@@ -48,7 +48,12 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: "center",
-        gap: -20,
+    },
+    underline: {
+        height: 1,
+        width: '90%',
+        marginTop: 50,
+        marginBottom: 50
     }
 });
 

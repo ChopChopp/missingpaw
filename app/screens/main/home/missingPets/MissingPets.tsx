@@ -32,9 +32,10 @@ const MissingPets = ({userData}: any) => {
     return (
         <ScrollView>
             {usersWithMissingPet !== null && usersWithMissingPet.map((userWithMissingPet: any) => {
-                return <MissingPetView pet={userWithMissingPet.pet}
-                                       userData={userWithMissingPet}
-                                       key={userWithMissingPet.id}/>
+                return <MissingPetView
+                    pet={userWithMissingPet.pet}
+                    userData={userWithMissingPet}
+                    key={userWithMissingPet.id}/>
             })}
         </ScrollView>
     );

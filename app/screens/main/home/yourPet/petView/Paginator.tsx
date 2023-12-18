@@ -2,11 +2,11 @@ import React from 'react';
 
 import {View, StyleSheet, Animated, useWindowDimensions} from 'react-native';
 
-const Paginator = ({scrollX}: any) => {
+const Paginator = ({scrollX, height, margin}: any) => {
     const {width} = useWindowDimensions();
 
     return (
-        <View style={{flexDirection: 'row', height: 64}}>
+        <View style={{flexDirection: 'row', height: height, margin: margin }}>
             {Array.from({length: 2}).map((_, i) => {
                 const inputRange = [(i - 1) * width, i * width, (i + 1) * width];
                 const dotWidth = scrollX.interpolate({
