@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     petDetails: {
         backgroundColor: "#8c8c8c",
         width: '95%',
-        height: '73.5%',
-        marginTop: 50,
+        height: '87%',
+        marginTop: 55,
         borderRadius: 6,
         justifyContent: "flex-start",
     },
