@@ -17,7 +17,6 @@ const Login = ({fetchUserData}: any) => {
   const [password, setPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const [focus, setFocus] = useState("");
   const auth = FIREBASE_AUTH;
 
   const signIn = async () => {
@@ -39,7 +38,6 @@ const Login = ({fetchUserData}: any) => {
       contentContainerStyle={styles.inner}
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled={true}
-      extraScrollHeight={focus === "email" ? 100 : 50}
       keyboardOpeningTime={0}
     >
       <Text style={styles.title}>Login</Text>
@@ -48,9 +46,7 @@ const Login = ({fetchUserData}: any) => {
         placeholder="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
-        autoCapitalize="none"
         keyboardType="email-address"
-        onFocus={() => setFocus("email")}
       />
       <TextInput
         style={styles.input}
@@ -58,7 +54,6 @@ const Login = ({fetchUserData}: any) => {
         value={password}
         onChangeText={(password) => setPassword(password)}
         secureTextEntry
-        onFocus={() => setFocus("password")}
       />
 
       <View style={styles.actionContainer}>
