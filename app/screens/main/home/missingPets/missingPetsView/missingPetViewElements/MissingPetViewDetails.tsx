@@ -1,6 +1,6 @@
 import React from "react";
 import {StyleSheet, useWindowDimensions, View} from "react-native";
-import ThemedText from "../../../../../../helper/themedText/ThemedText";
+import ThemedText from "../../../../../../helper/themedComponents/themedText/ThemedText";
 import Dog from "../../../../../../helper/icons/Dog";
 import Color from "../../../../../../helper/icons/Color";
 import Breed from "../../../../../../helper/icons/Breed";

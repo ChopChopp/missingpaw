@@ -12,7 +12,7 @@ import {
     useColorScheme,
     View
 } from "react-native";
-import ThemedText from "../../../../../helper/themedText/ThemedText";
+import ThemedText from "../../../../../helper/themedComponents/themedText/ThemedText";
 import {ref, set} from "firebase/database";
 import {ref as strgRef, uploadBytes, getDownloadURL} from "firebase/storage";
 import {FIREBASE_DATABASE, STORAGE} from "../../../../../../FirebaseConfig";

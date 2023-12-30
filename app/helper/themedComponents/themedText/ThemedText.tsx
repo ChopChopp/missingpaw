@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Text, StyleSheet, TextStyle, useColorScheme } from 'react-native';
-import { DarkTheme, LightTheme } from '../theme/Theme';
+import { DarkTheme, LightTheme } from '../../theme/Theme';
 
 interface ThemedTextProps {
     children: ReactNode;

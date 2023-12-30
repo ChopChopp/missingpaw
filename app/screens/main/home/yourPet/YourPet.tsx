@@ -1,6 +1,6 @@
 import * as React from "react";
 import {SafeAreaView, StyleSheet, TouchableOpacity, View} from "react-native";
-import ThemedText from "../../../../helper/themedText/ThemedText";
+import ThemedText from "../../../../helper/themedComponents/themedText/ThemedText";
 import {FIREBASE_DATABASE} from "../../../../../FirebaseConfig";
 import {ref, get} from "firebase/database";
 import {useEffect, useState} from "react";

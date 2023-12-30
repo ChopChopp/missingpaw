@@ -9,7 +9,7 @@ import Paginator from "../../yourPet/petView/Paginator";
 import PetViewMeta from "../../yourPet/petView/petViewElements/PetViewMeta";
 import MissingPetViewDetails from "./missingPetViewElements/MissingPetViewDetails";
 import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
-import ThemedText from "../../../../../helper/themedText/ThemedText";
+import ThemedText from "../../../../../helper/themedComponents/themedText/ThemedText";
 
 const MissingPetView = ({pet, userData}: any) => {
     const separatorColor = useColorScheme() === 'dark' ? DarkTheme.colors.secondary : LightTheme.colors.secondary;

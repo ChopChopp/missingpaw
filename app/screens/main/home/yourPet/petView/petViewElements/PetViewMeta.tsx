@@ -6,7 +6,7 @@ import {
     useWindowDimensions,
     View
 } from "react-native";
-import ThemedText from "../../../../../../helper/themedText/ThemedText";
+import ThemedText from "../../../../../../helper/themedComponents/themedText/ThemedText";
 
 const PetViewMeta = ({item}: any) => {
     const {width} = useWindowDimensions();

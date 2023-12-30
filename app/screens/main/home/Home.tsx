@@ -1,6 +1,6 @@
 import * as React from "react";
 import {SafeAreaView, StyleSheet, TouchableOpacity, useColorScheme, View} from "react-native";
-import ThemedText from "../../../helper/themedText/ThemedText";
+import ThemedText from "../../../helper/themedComponents/themedText/ThemedText";
 import {useState} from "react";
 import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 import YourPet from "./yourPet/YourPet";
