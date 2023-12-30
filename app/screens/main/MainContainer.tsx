@@ -3,9 +3,11 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Home from "./home/Home";
+import Sightings from "./sightings/Sightings";
 import Settings from "./settings/Settings";
 
 const homeName = "Home";
+const sightingsName = "Sightings";
 const settingsName = "Settings";
 
 const Tab = createBottomTabNavigator();
@@ -25,6 +27,8 @@ export const MainContainer = ({route}: any) => {
                     let iconName;
                     if (route.name === homeName) {
                         iconName = focused ? "home" : "home-outline";
+                    } else if (route.name === sightingsName) {
+                        iconName = focused ? "eye" : "eye-outline";
                     } else if (route.name === settingsName) {
                         iconName = focused ? "settings" : "settings-outline";
                     }
@@ -43,6 +47,9 @@ export const MainContainer = ({route}: any) => {
         >
             <Tab.Screen name={homeName} key={homeName} initialParams={{userData: userData}}>
                 {(props) => <Home {...props} />}
+            </Tab.Screen>
+            <Tab.Screen name={sightingsName} key={sightingsName} initialParams={{userData: userData}}>
+                {(props) => <Sightings {...props} />}
             </Tab.Screen>
             <Tab.Screen name={settingsName} key={settingsName} initialParams={{userData: userData}}>
                 {(props) => <Settings {...props} />}
