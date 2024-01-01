@@ -4,12 +4,15 @@ import {
     StyleSheet,
     Text,
     TextInput,
-    TouchableOpacity,
+    TouchableOpacity, useColorScheme,
     View,
 } from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+import {DarkTheme, LightTheme} from "../../../../../../helper/theme/Theme";
 
 const ReportSightingView = ({setShowReportSightingView}: any) => {
+    const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
+
     const [location, setLocation] = React.useState("");
     const [description, setDescription] = React.useState("");
     const [date, setDate] = React.useState("");
@@ -43,21 +46,21 @@ const ReportSightingView = ({setShowReportSightingView}: any) => {
         >
             <Text style={styles.title}>Location</Text>
             <TextInput
-                style={styles.input}
+                style={[styles.input, {color: textColor}]}
                 placeholder="Location where you saw the pet"
                 value={location}
                 onChangeText={(text) => setLocation(text)}
                 keyboardType="email-address"
             />
             <TextInput
-                style={styles.input}
+                style={[styles.input, {color: textColor}]}
                 placeholder="Description of the sighting and the pet"
                 value={description}
                 onChangeText={(text) => setDescription(text)}
                 keyboardType="default"
             />
             <TextInput
-                style={styles.input}
+                style={[styles.input, {color: textColor}]}
                 placeholder="Date of the sighting"
                 value={date}
                 onChangeText={(text) => setDate(text)}
