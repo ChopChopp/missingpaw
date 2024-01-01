@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {Alert, ScrollView, StyleSheet, View} from "react-native";
+import {Alert, SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 import {FIREBASE_DATABASE} from "../../../../../FirebaseConfig";
 import {ref, get} from 'firebase/database';
 import MissingPetView from "./missingPetsView/MissingPetView";
@@ -36,9 +36,9 @@ const MissingPets = ({userData}: any) => {
     }, []);
 
     return (
-        <View>
+        <SafeAreaView style={styles.container}>
             {!showReportSightingView ?
-                <ScrollView style={styles.container}>
+                <ScrollView>
                     {usersWithMissingPet !== null && usersWithMissingPet.map((userWithMissingPet: any) => {
                         return <MissingPetView
                             pet={userWithMissingPet.pet}
@@ -48,15 +48,20 @@ const MissingPets = ({userData}: any) => {
                         />
                     })}
                 </ScrollView>
-                : <ReportSightingView setShowReportSightingView={setShowReportSightingView}/>
+                :
+                <View style={styles.container}><ReportSightingView style={styles.container} setShowReportSightingView={setShowReportSightingView}/></View>
             }
-        </View>
+        </SafeAreaView>
+
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: "100%",
+        alignSelf: 'stretch',
+
     },
 })
 

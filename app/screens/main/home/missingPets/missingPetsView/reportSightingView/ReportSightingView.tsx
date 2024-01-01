@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {
-    ActivityIndicator,
+    ActivityIndicator, SafeAreaView,
     StyleSheet,
     Text,
     TextInput,
@@ -29,7 +29,7 @@ const ReportSightingView = ({setShowReportSightingView}: any) => {
         console.log("handleSubmitSighting");
         setLoading(true);
 
-        if (location === "" || description === "" || date === "" ) {
+        if (location === "" || description === "" || date === "") {
             alert("Please fill out all fields!");
             setLoading(false);
             return;
@@ -71,7 +71,9 @@ const ReportSightingView = ({setShowReportSightingView}: any) => {
                 {loading ? (
                     <ActivityIndicator size="large" color="#0000ff"/>
                 ) : (
-                    <TouchableOpacity disabled={submitDisabled} style={[styles.btn, submitDisabled ? styles.btnDisabled : styles.btnEnabled]} onPress={() => handleSubmitSighting()}>
+                    <TouchableOpacity disabled={submitDisabled}
+                                      style={[styles.btn, submitDisabled ? styles.btnDisabled : styles.btnEnabled]}
+                                      onPress={() => handleSubmitSighting()}>
                         <Text style={styles.btnText}>Submit</Text>
                     </TouchableOpacity>
                 )}
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
         marginBottom: 32,
     },
     input: {
-        width: "105%",
+        width: "100%",
         height: 48,
         padding: 12,
         borderWidth: 1,
