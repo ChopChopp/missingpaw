@@ -36,9 +36,9 @@ const MissingPets = ({userData}: any) => {
     }, []);
 
     return (
-        <View>
+        <>
             {!showReportSightingView ?
-                <ScrollView>
+                <ScrollView style={styles.container}>
                     {usersWithMissingPet !== null && usersWithMissingPet.map((userWithMissingPet: any) => {
                         return <MissingPetView
                             pet={userWithMissingPet.pet}
@@ -48,9 +48,9 @@ const MissingPets = ({userData}: any) => {
                         />
                     })}
                 </ScrollView>
-                : <ReportSightingView handleReportSighting={handleReportSighting}/>
+                : <ReportSightingView setShowReportSightingView={setShowReportSightingView}/>
             }
-        </View>
+        </>
     );
 }
 
