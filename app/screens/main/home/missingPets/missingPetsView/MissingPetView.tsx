@@ -3,7 +3,7 @@ import {
     StyleSheet,
     View,
     FlatList,
-    Animated, useColorScheme,
+    Animated, useColorScheme, TouchableOpacity, Text,
 } from "react-native";
 import Paginator from "../../yourPet/petView/Paginator";
 import PetViewMeta from "../../yourPet/petView/petViewElements/PetViewMeta";
@@ -11,7 +11,7 @@ import MissingPetViewDetails from "./missingPetViewElements/MissingPetViewDetail
 import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
 import ThemedText from "../../../../../helper/themedComponents/themedText/ThemedText";
 
-const MissingPetView = ({pet, userData}: any) => {
+const MissingPetView = ({pet, userData, handleReportSighting}: any) => {
     const separatorColor = useColorScheme() === 'dark' ? DarkTheme.colors.secondary : LightTheme.colors.secondary;
 
     const scrollX = useRef(new Animated.Value(0)).current;
@@ -48,6 +48,11 @@ const MissingPetView = ({pet, userData}: any) => {
                     minute: 'numeric'
                 })}
             </ThemedText>
+            <TouchableOpacity style={styles.btn}
+                              onPress={() => handleReportSighting(pet)}>
+                <Text
+                    style={styles.btnText}>Report sighting</Text>
+            </TouchableOpacity>
             <View style={[styles.underline, {backgroundColor: separatorColor}]}/>
         </View>
     );
@@ -62,13 +67,28 @@ const styles = StyleSheet.create({
     underline: {
         height: 1,
         width: '90%',
-        marginTop: 50,
-        marginBottom: 50
+        marginTop: 30,
+        marginBottom: 30
     },
     petStatus: {
         fontSize: 12,
         paddingBottom: 10,
         fontStyle: 'italic'
+    },
+    btn: {
+        marginTop: 15,
+        paddingTop: 20,
+        paddingRight: 30,
+        paddingBottom: 20,
+        paddingLeft: 30,
+        borderRadius: 5,
+        width: '90%',
+        backgroundColor: '#ff3b30',
+    },
+    btnText: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
     }
 });
 

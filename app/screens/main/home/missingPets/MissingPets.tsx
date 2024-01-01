@@ -1,12 +1,18 @@
 import React, {useState, useEffect} from "react";
-import {Alert, ScrollView} from "react-native";
+import {Alert, ScrollView, StyleSheet, View} from "react-native";
 import {FIREBASE_DATABASE} from "../../../../../FirebaseConfig";
 import {ref, get} from 'firebase/database';
 import MissingPetView from "./missingPetsView/MissingPetView";
+import ReportSightingView from "./missingPetsView/reportSightingView/ReportSightingView";
 
 const MissingPets = ({userData}: any) => {
     const [usersWithMissingPet, setUsersWithMissingPet]: any = useState(null)
+    const [showReportSightingView, setShowReportSightingView] = useState(false);
     const usersRef = ref(FIREBASE_DATABASE, "users");
+
+    const handleReportSighting = (pet?: any) => {
+        setShowReportSightingView(!showReportSightingView);
+    }
 
     const getUsersWithMissingPet = () => {
         get(usersRef).then((snapshot) => {
@@ -30,15 +36,31 @@ const MissingPets = ({userData}: any) => {
     }, []);
 
     return (
-        <ScrollView>
-            {usersWithMissingPet !== null && usersWithMissingPet.map((userWithMissingPet: any) => {
-                return <MissingPetView
-                    pet={userWithMissingPet.pet}
-                    userData={userWithMissingPet}
-                    key={userWithMissingPet.id}/>
-            })}
-        </ScrollView>
+        <View>
+            {!showReportSightingView ?
+                <ScrollView>
+                    {usersWithMissingPet !== null && usersWithMissingPet.map((userWithMissingPet: any) => {
+                        return <MissingPetView
+                            pet={userWithMissingPet.pet}
+                            userData={userWithMissingPet}
+                            key={userWithMissingPet.id}
+                            handleReportSighting={handleReportSighting}
+                        />
+                    })}
+                </ScrollView>
+                : <ReportSightingView handleReportSighting={handleReportSighting}/>
+            }
+        </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+})
 
 export default MissingPets;
