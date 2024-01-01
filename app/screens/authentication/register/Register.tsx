@@ -13,8 +13,8 @@ import {
 } from "react-native";
 import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 
-const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
 const Register = ({fetchUserData}: any) => {
+    const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
     const auth = FIREBASE_AUTH;
 
     const [firstName, setFirstName] = useState("");
@@ -74,7 +74,7 @@ const Register = ({fetchUserData}: any) => {
             <>
                 <Text style={styles.title}>Register</Text>
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { color: textColor }]}
                     placeholder="First name"
                     value={firstName}
                     onChangeText={(text) => setFirstName(text)}
@@ -83,7 +83,7 @@ const Register = ({fetchUserData}: any) => {
                     onFocus={() => setFocus("firstname")}
                 />
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { color: textColor }]}
                     placeholder="Last name"
                     value={lastName}
                     onChangeText={(text) => setLastName(text)}
@@ -92,7 +92,7 @@ const Register = ({fetchUserData}: any) => {
                     onFocus={() => setFocus("lastname")}
                 />
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { color: textColor }]}
                     placeholder="Email"
                     value={email}
                     onChangeText={(text) => setEmail(text)}
@@ -101,7 +101,7 @@ const Register = ({fetchUserData}: any) => {
                     onFocus={() => setFocus("email")}
                 />
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { color: textColor }]}
                     placeholder="Password"
                     value={password}
                     onChangeText={(password) => setPassword(password)}
@@ -109,7 +109,7 @@ const Register = ({fetchUserData}: any) => {
                     onFocus={() => setFocus("password")}
                 />
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { color: textColor }]}
                     placeholder="Confirm password"
                     value={confirmPassword}
                     onChangeText={(password) => setConfirmPassword(password)}
@@ -154,7 +154,6 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         borderRadius: 4,
         marginBottom: 16,
-        color: textColor
     },
     actionContainer: {
         height: 100,
