@@ -9,9 +9,11 @@ import {
     Button,
     TextInput,
     StyleSheet,
-    ActivityIndicator,
+    ActivityIndicator, useColorScheme,
 } from "react-native";
+import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 
+const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
 const Register = ({fetchUserData}: any) => {
     const auth = FIREBASE_AUTH;
 
@@ -152,6 +154,7 @@ const styles = StyleSheet.create({
         borderColor: "#ccc",
         borderRadius: 4,
         marginBottom: 16,
+        color: textColor
     },
     actionContainer: {
         height: 100,

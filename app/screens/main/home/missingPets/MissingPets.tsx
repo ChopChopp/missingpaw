@@ -36,7 +36,7 @@ const MissingPets = ({userData}: any) => {
     }, []);
 
     return (
-        <>
+        <View>
             {!showReportSightingView ?
                 <ScrollView style={styles.container}>
                     {usersWithMissingPet !== null && usersWithMissingPet.map((userWithMissingPet: any) => {
@@ -50,16 +50,13 @@ const MissingPets = ({userData}: any) => {
                 </ScrollView>
                 : <ReportSightingView setShowReportSightingView={setShowReportSightingView}/>
             }
-        </>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
-        alignItems: 'center',
-        justifyContent: 'center'
     },
 })
 

@@ -31,7 +31,6 @@ const ReportSightingView = ({setShowReportSightingView}: any) => {
             setLoading(false);
             return;
         }
-
     }
 
     return (
@@ -45,14 +44,14 @@ const ReportSightingView = ({setShowReportSightingView}: any) => {
             <Text style={styles.title}>Location</Text>
             <TextInput
                 style={styles.input}
-                // placeholder="Location where you saw the pet"
+                placeholder="Location where you saw the pet"
                 value={location}
                 onChangeText={(text) => setLocation(text)}
                 keyboardType="email-address"
             />
             <TextInput
                 style={styles.input}
-                // placeholder="Description of the sighting and the pet"
+                placeholder="Description of the sighting and the pet"
                 value={description}
                 onChangeText={(text) => setDescription(text)}
                 keyboardType="default"
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
         marginBottom: 32,
     },
     input: {
-        width: "80%",
+        width: "105%",
         height: 48,
         padding: 12,
         borderWidth: 1,
