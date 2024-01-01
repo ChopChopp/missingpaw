@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         padding: 10,
-        backgroundColor: "#727272",
+        backgroundColor: "#8f8f8f",
         borderTopLeftRadius: 6,
         borderTopRightRadius: 6,
     },
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     },
     petDetailsElement: {
         flexDirection: "row",
-        backgroundColor: "#888787",
+        backgroundColor: "#a8a8a8",
         padding: 10,
         borderTopColor: "#bbbbbb",
         borderTopWidth: 1,
