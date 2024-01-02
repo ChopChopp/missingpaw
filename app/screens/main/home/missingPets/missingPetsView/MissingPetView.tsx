@@ -49,7 +49,7 @@ const MissingPetView = ({pet, userData, handleReportSighting}: any) => {
                 })}
             </ThemedText>
             <TouchableOpacity style={styles.btn}
-                              onPress={() => handleReportSighting(pet)}>
+                              onPress={() => handleReportSighting(userData)}>
                 <Text
                     style={styles.btnText}>Report sighting</Text>
             </TouchableOpacity>

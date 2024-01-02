@@ -7,13 +7,14 @@ import ReportSightingView from "./missingPetsView/reportSightingView/ReportSight
 
 const MissingPets = ({userData}: any) => {
     const [usersWithMissingPet, setUsersWithMissingPet]: any = useState(null)
-    const [missingPet, setMissingPet]: any = useState(null)
+
+    const [userWithMissingPet, setUserWithMissingPet]: any = useState(null)
     const [showReportSightingView, setShowReportSightingView] = useState(false);
     const usersRef = ref(FIREBASE_DATABASE, "users");
 
-    const handleReportSighting = (pet: any) => {
+    const handleReportSighting = (userData: any) => {
         setShowReportSightingView(!showReportSightingView);
-        setMissingPet(pet);
+        setUserWithMissingPet(userData);
     }
 
     const getUsersWithMissingPet = () => {
@@ -39,9 +40,10 @@ const MissingPets = ({userData}: any) => {
 
     return (
         <View>
-            {showReportSightingView && missingPet !== null ?
+            {showReportSightingView && userWithMissingPet !== null ?
                 <ReportSightingView setShowReportSightingView={setShowReportSightingView}
-                                    pet={missingPet}
+                                    userWithMissingPet={userWithMissingPet}
+                                    userData={userData}
                 />
                 :
                 <ScrollView>
