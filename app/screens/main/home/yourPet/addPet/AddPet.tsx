@@ -64,12 +64,12 @@ const AddPet = ({userData, setShowAddPet}: any) => {
             return;
         }
 
-        console.log("Creating pet object...");
+        console.info("Creating pet object...");
         setLoading(true)
 
         uriToBlob(image).then((blob) => {
             uploadBytes(storageRef, blob).then((snapshot) => {
-                console.log('Uploaded a blob!');
+                console.info('Uploaded a blob!');
                 getDownloadURL(snapshot.ref).then((downloadURL) => {
                     const petObject = [
                         {
