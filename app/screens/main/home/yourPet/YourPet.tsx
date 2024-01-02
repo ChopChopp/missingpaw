@@ -16,7 +16,7 @@ interface Pet {
     imageUrl: string;
 }
 
-const YourPet = ({userData}: any) => {
+const YourPet = ({userData, fetchUserData}: any) => {
     const [pet, setPet] = useState<Pet | null>(null);
     const [hasPets, setHasPets] = useState<boolean | null>(null);
     const [showAddPet, setShowAddPet] = useState<boolean>(false);
@@ -52,7 +52,7 @@ const YourPet = ({userData}: any) => {
                 </>
                 :
                 showAddPet ?
-                    <AddPet userData={userData} setShowAddPet={setShowAddPet}/>
+                    <AddPet userData={userData} setShowAddPet={setShowAddPet} fetchUserData={fetchUserData}/>
                     :
                     <View style={styles.container}>
                         <ThemedText>You don't have a pet yet!</ThemedText>

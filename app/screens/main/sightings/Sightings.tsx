@@ -3,13 +3,13 @@ import {SafeAreaView, StyleSheet, View,} from "react-native";
 import SightingsView from "./sightingsView/SightingView";
 import ThemedText from "../../../helper/themedComponents/themedText/ThemedText";
 
-const Sightings = ({route}: any) => {
-    const {userData} = route.params;
+const Sightings = ({userData}: any) => {
 
     useEffect(() => {
         console.log(userData.pet !== undefined && userData.pet[0] !== undefined && userData.pet[0].sightings !== undefined && userData.pet[0].sightings[0].description);
         console.log(userData);
     }, []);
+
     return (
         <SafeAreaView style={styles.container}>
             {userData.pet === undefined ? <ThemedText>You have no pet</ThemedText>

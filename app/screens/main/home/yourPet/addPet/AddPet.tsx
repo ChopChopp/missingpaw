@@ -21,7 +21,7 @@ import {DarkTheme, LightTheme} from "../../../../../helper/theme/Theme";
 import * as ImagePicker from "expo-image-picker";
 
 
-const AddPet = ({userData, setShowAddPet}: any) => {
+const AddPet = ({userData, setShowAddPet, fetchUserData}: any) => {
     const userRef = ref(FIREBASE_DATABASE, "users/" + userData.id + "/pet");
     const storageRef = strgRef(STORAGE, userData.id)
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
@@ -87,6 +87,7 @@ const AddPet = ({userData, setShowAddPet}: any) => {
 
                     set(userRef, petObject).then(() => {
                         console.info("Pet object added successfully!")
+                        fetchUserData(userData.id);
                         setLoading(false)
                         setShowAddPet(false)
                     }).catch((error) => {

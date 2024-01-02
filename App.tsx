@@ -12,13 +12,13 @@ import {DarkTheme, LightTheme} from "./app/helper/theme/Theme";
 const Stack = createNativeStackNavigator();
 const InsideStack = createNativeStackNavigator();
 
-const InsideLayout = ({userData}: any) => {
+const InsideLayout = ({userData, fetchUserData}: any) => {
     return (
         <InsideStack.Navigator screenOptions={{headerShown: false}}>
             <InsideStack.Screen
                 name="Main"
                 initialParams={{userData: userData}}
-                children={(props) => <MainContainer {...props}/>}
+                children={(props) => <MainContainer {...props} userData={userData} fetchUserData={fetchUserData}/>}
             />
         </InsideStack.Navigator>
     );
@@ -74,7 +74,7 @@ const App = () => {
                         name="Home"
                         options={{headerShown: false}}
                     >
-                        {(props) => <InsideLayout {...props} userData={userData}/>}
+                        {(props) => <InsideLayout {...props} userData={userData} fetchUserData={fetchUserData}/>}
                     </Stack.Screen>
 
                 ) : (

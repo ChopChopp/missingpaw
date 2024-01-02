@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -12,8 +12,8 @@ const settingsName = "Settings";
 
 const Tab = createBottomTabNavigator();
 
-export const MainContainer = ({route}: any) => {
-    const {userData} = route.params;
+export const MainContainer = ({userData, fetchUserData}: any) => {
+
     return (
         <Tab.Navigator
             initialRouteName={homeName}
@@ -46,10 +46,10 @@ export const MainContainer = ({route}: any) => {
             })}
         >
             <Tab.Screen name={homeName} key={homeName} initialParams={{userData: userData}}>
-                {(props) => <Home {...props} />}
+                {(props) => <Home {...props} fetchUserData={fetchUserData}/>}
             </Tab.Screen>
             <Tab.Screen name={sightingsName} key={sightingsName} initialParams={{userData: userData}}>
-                {(props) => <Sightings {...props} />}
+                {(props) => <Sightings {...props} userData={userData} />}
             </Tab.Screen>
             <Tab.Screen name={settingsName} key={settingsName} initialParams={{userData: userData}}>
                 {(props) => <Settings {...props} />}

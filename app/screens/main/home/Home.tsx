@@ -6,7 +6,7 @@ import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 import YourPet from "./yourPet/YourPet";
 import MissingPets from "./missingPets/MissingPets";
 
-const Home = ({route}: { route: any }) => {
+const Home = ({route, fetchUserData}: any) => {
     const {userData} = route.params;
 
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
@@ -40,7 +40,7 @@ const Home = ({route}: { route: any }) => {
             </View>
 
             <View style={styles.contentContainer}>
-                {selectedOption === 'Your pet' && <YourPet userData={userData}/>}
+                {selectedOption === 'Your pet' && <YourPet userData={userData} fetchUserData={fetchUserData}/>}
                 {selectedOption === 'Missing pets' && <MissingPets userData={userData}/>}
             </View>
         </SafeAreaView>
