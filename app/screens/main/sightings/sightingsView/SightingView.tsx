@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {StyleSheet, View,} from "react-native";
 import ThemedText from "../../../../helper/themedComponents/themedText/ThemedText";
 
 const SightingsView = ({sighting}: any) => {
+    useEffect(() => {
+        console.log(sighting.date)
+    }, []);
+
     return (
         <View style={styles.container}>
-
-            <ThemedText>{"Report date: " + new Date(pet[0].missingSince).toLocaleString('de-CH', {
+            <ThemedText>{"Report date: " + new Date(sighting.date).toLocaleString('de-CH', {
                 year: 'numeric',
                 month: 'numeric',
                 day: 'numeric',
