@@ -17,7 +17,6 @@ const InsideLayout = ({userData, fetchUserData}: any) => {
         <InsideStack.Navigator screenOptions={{headerShown: false}}>
             <InsideStack.Screen
                 name="Main"
-                initialParams={{userData: userData}}
                 children={(props) => <MainContainer {...props} userData={userData} fetchUserData={fetchUserData}/>}
             />
         </InsideStack.Navigator>

@@ -11,9 +11,8 @@ import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 
 const auth = getAuth();
 
-const Settings = ({navigation, route}: any) => {
+const Settings = ({navigation, userData}: any) => {
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
-    const {userData} = route.params;
 
     if (!userData) {
         return <ActivityIndicator size="large" color="#0000ff"/>;

@@ -6,8 +6,7 @@ import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 import YourPet from "./yourPet/YourPet";
 import MissingPets from "./missingPets/MissingPets";
 
-const Home = ({route, fetchUserData}: any) => {
-    const {userData} = route.params;
+const Home = ({userData, fetchUserData}: any) => {
 
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
     const [selectedOption, setSelectedOption] = useState<string | null>("Your pet");

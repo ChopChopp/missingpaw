@@ -45,14 +45,14 @@ export const MainContainer = ({userData, fetchUserData}: any) => {
                 tabBarInactiveTintColor: 'grey'
             })}
         >
-            <Tab.Screen name={homeName} key={homeName} initialParams={{userData: userData}}>
-                {(props) => <Home {...props} fetchUserData={fetchUserData}/>}
+            <Tab.Screen name={homeName} key={homeName}>
+                {(props) => <Home {...props} userData={userData} fetchUserData={fetchUserData}/>}
             </Tab.Screen>
-            <Tab.Screen name={sightingsName} key={sightingsName} initialParams={{userData: userData}}>
+            <Tab.Screen name={sightingsName} key={sightingsName}>
                 {(props) => <Sightings {...props} userData={userData} />}
             </Tab.Screen>
-            <Tab.Screen name={settingsName} key={settingsName} initialParams={{userData: userData}}>
-                {(props) => <Settings {...props} />}
+            <Tab.Screen name={settingsName} key={settingsName}>
+                {(props) => <Settings {...props} userData={userData}/>}
             </Tab.Screen>
         </Tab.Navigator>
     );
