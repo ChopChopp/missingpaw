@@ -49,13 +49,14 @@ const ReportSightingView = ({setShowReportSightingView, userData, userWithMissin
         const updates: any = {};
         let sightingKey = push(child(ref(FIREBASE_DATABASE), "users/" + userWithMissingPet.id + "/pet/0/sightings")).key
 
-        updates["users/" + userWithMissingPet.id + "/pet/0/sightings/" + sightingKey] = {
+        updates["users/" + userWithMissingPet.id + "/pet/0/sightings/"] = [{
+            id: sightingKey,
             description: description,
             location: location,
             date: date,
             reporter: userData.email,
             seen: false,
-        };
+        }];
 
         update(ref(FIREBASE_DATABASE), updates).then(() => {
             Alert.alert("Reported", "Your sighting has been reported.\nThank you for your help!")
