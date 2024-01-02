@@ -1,10 +1,13 @@
 import React, {useEffect} from "react";
-import {SafeAreaView, StyleSheet, View,} from "react-native";
+import {SafeAreaView, StyleSheet} from "react-native";
 import SightingsView from "./sightingsView/SightingView";
 import ThemedText from "../../../helper/themedComponents/themedText/ThemedText";
 
-const Sightings = ({userData}: any) => {
+interface UserData {
+    pet?: { sightings?: any[] }[];
+}
 
+const Sightings = ({userData}: any) => {
     useEffect(() => {
         console.log(userData.pet !== undefined && userData.pet[0] !== undefined && userData.pet[0].sightings !== undefined && userData.pet[0].sightings[0].description);
         console.log(userData);
@@ -14,7 +17,7 @@ const Sightings = ({userData}: any) => {
         <SafeAreaView style={styles.container}>
             {userData.pet === undefined ? <ThemedText>You have no pet</ThemedText>
                 : userData.pet[0].sightings === undefined ? <ThemedText>You have no sightings reported</ThemedText>
-                    : userData.pet[0].sightings.map((sighting: object) => {
+                    : userData.pet[0].sightings.map((sighting: UserData) => {
                         return <SightingsView
                             sighting={sighting}
                         />
