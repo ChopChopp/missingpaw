@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: 'center',
         marginTop: 100,
+        width: "100%",
     },
     navContainer: {
         flex: 1,
@@ -64,6 +65,8 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         flex: 1,
+        width: "100%",
+        alignItems: "center",
         justifyContent: "center",
     },
     button: {

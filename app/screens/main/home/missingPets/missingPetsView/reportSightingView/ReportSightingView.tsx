@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {
-    ActivityIndicator, SafeAreaView,
+    ActivityIndicator,
     StyleSheet,
     Text,
     TextInput,
@@ -9,8 +9,12 @@ import {
 } from "react-native";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {DarkTheme, LightTheme} from "../../../../../../helper/theme/Theme";
+import { Dimensions } from "react-native";
+import ThemedText from "../../../../../../helper/themedComponents/themedText/ThemedText";
 
-const ReportSightingView = ({setShowReportSightingView}: any) => {
+let width = Dimensions.get('window').width;
+
+const ReportSightingView = ({setShowReportSightingView, pet}: any) => {
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
 
     const [location, setLocation] = React.useState("");
@@ -26,6 +30,7 @@ const ReportSightingView = ({setShowReportSightingView}: any) => {
     }, [location, description, date]);
 
     const handleSubmitSighting = () => {
+        console.log(pet)
         console.log("handleSubmitSighting");
         setLoading(true);
 
@@ -44,7 +49,7 @@ const ReportSightingView = ({setShowReportSightingView}: any) => {
             scrollEnabled={true}
             keyboardOpeningTime={0}
         >
-            <Text style={styles.title}>Location</Text>
+            <ThemedText style={styles.title}>Report sighting of {pet[0].name}</ThemedText>
             <TextInput
                 style={[styles.input, {color: textColor}]}
                 placeholder="Location where you saw the pet"
@@ -86,10 +91,10 @@ const ReportSightingView = ({setShowReportSightingView}: any) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        width: width,
     },
     inner: {
         padding: 24,
-        flexGrow: 1,
         alignItems: "center",
         justifyContent: "center",
     },
