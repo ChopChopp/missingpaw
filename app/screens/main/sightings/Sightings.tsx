@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {Alert, SafeAreaView, StyleSheet} from "react-native";
+import {Alert, SafeAreaView, ScrollView, StyleSheet} from "react-native";
 import SightingsView from "./sightingsView/SightingView";
 import ThemedText from "../../../helper/themedComponents/themedText/ThemedText";
 import {ref, update} from "firebase/database";
@@ -47,21 +47,24 @@ const Sightings: React.FC<SightingsProps> = ({userData}) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {userData?.pet?.[0]?.sightings ? (
-                Object.keys(userData.pet[0].sightings).map((key: any) => userData.pet[0].sightings?.[key])
-                    .filter((sighting: any) => sighting !== null) // Filter out null values
-                    .map((sighting: any) => {
-                        handleNotification(sighting);
-                        return (
-                            <SightingsView
-                                key={sighting.id}
-                                sighting={sighting}
-                            />
-                        );
-                    })
-            ) : (
-                <ThemedText>{userData?.pet ? 'You have no sightings reported' : 'You have no pet'}</ThemedText>
-            )}
+            <ThemedText style={{fontSize: 24, fontWeight: "bold", textAlign: 'center'}}>Sightings</ThemedText>
+            <ScrollView>
+                {userData?.pet?.[0]?.sightings ? (
+                    Object.keys(userData.pet[0].sightings).map((key: any) => userData.pet[0].sightings?.[key])
+                        .filter((sighting: any) => sighting !== null) // Filter out null values
+                        .map((sighting: any) => {
+                            handleNotification(sighting);
+                            return (
+                                <SightingsView
+                                    key={sighting.id}
+                                    sighting={sighting}
+                                />
+                            );
+                        })
+                ) : (
+                    <ThemedText>{userData?.pet ? 'You have no sightings reported' : 'You have no pet'}</ThemedText>
+                )}
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -69,9 +72,8 @@ const Sightings: React.FC<SightingsProps> = ({userData}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center"
-    }
+    },
+
 });
 
 export default Sightings;
