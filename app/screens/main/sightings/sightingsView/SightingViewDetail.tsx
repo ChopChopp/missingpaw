@@ -1,5 +1,5 @@
 import React from "react";
-import {ScrollView, StyleSheet, TouchableOpacity, useColorScheme, View,} from "react-native";
+import {Linking, ScrollView, StyleSheet, Text, TouchableOpacity, useColorScheme, View,} from "react-native";
 import ThemedText from "../../../../helper/themedComponents/themedText/ThemedText";
 import {DarkTheme, LightTheme} from "../../../../helper/theme/Theme";
 
@@ -16,56 +16,59 @@ const SightingsView = ({sighting, toggleDetailedView}: any) => {
     })
 
     return (
-        <ScrollView style={[styles.container, {backgroundColor: theme.backgroundLight}]} contentContainerStyle={styles.innerContainer}>
+        <View style={[styles.container, {backgroundColor: theme.backgroundLight}]}>
             <View style={{alignItems: "flex-start"}}>
-                <TouchableOpacity style={[styles.backButton, {backgroundColor: theme.backgroundModern}]} onPress={() => toggleDetailedView()}>
+                <TouchableOpacity style={[styles.backButton, {backgroundColor: theme.backgroundModern}]}
+                                  onPress={() => toggleDetailedView()}>
                     <ThemedText>Back</ThemedText>
                 </TouchableOpacity>
             </View>
             <View style={styles.inner}>
                 <ThemedText style={styles.label}>Sighting date:</ThemedText>
                 <View style={[styles.innerTextDate, {borderColor: theme.border}]}>
-                    <ThemedText style={styles.text}>{date}</ThemedText>
+                    <ThemedText style={styles.dateText}>{date}</ThemedText>
                 </View>
             </View>
 
             <View style={styles.inner}>
                 <ThemedText style={styles.label}>Location</ThemedText>
-                <View style={[styles.innerText, {borderColor: theme.border}]}>
-                    <ThemedText selectable ellipsizeMode={'tail'} numberOfLines={4}
+                <ScrollView style={[styles.innerText, {borderColor: theme.border}]}>
+                    <ThemedText selectable
                                 style={styles.text}>{sighting.location}</ThemedText>
-                </View>
+                </ScrollView>
             </View>
 
             <View style={styles.inner}>
                 <ThemedText style={styles.label}>Description</ThemedText>
-                <View style={[styles.innerText, {borderColor: theme.border}]}>
+                <ScrollView style={[styles.innerText, {borderColor: theme.border}]}>
 
-                    <ThemedText selectable ellipsizeMode={'tail'} numberOfLines={4}
+                    <ThemedText selectable
                                 style={styles.text}>{sighting.description}</ThemedText>
-                </View>
+                </ScrollView>
             </View>
 
             <View style={styles.inner}>
-                <ThemedText style={styles.label}>Reporter</ThemedText>
-                <View style={[styles.innerTextReporter, {borderColor: theme.border}]}>
+                <View style={styles.contactReport}>
+                    <TouchableOpacity style={styles.btn}
+                                      onPress={() => Linking.openURL('mailto:' + sighting.reporter)}>
+                        <Text
+                            style={styles.btnText}>Contact reporter</Text>
+                    </TouchableOpacity>
 
-                    <ThemedText selectable ellipsizeMode={'tail'} numberOfLines={2}
-                                style={styles.text}>{sighting.reporter}</ThemedText>
+                    <ThemedText selectable ellipsizeMode={'tail'} numberOfLines={1}
+                                style={styles.label}>Reporter: {sighting.reporter}</ThemedText>
                 </View>
             </View>
-        </ScrollView>
+        </View>
     );
-
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         marginTop: 10,
     },
-    innerContainer: {
-        flex: 1,
-    },
+    innerContainer: {},
     textContainer: {
         backgroundColor: "yellow",
     },
@@ -73,8 +76,6 @@ const styles = StyleSheet.create({
         flex: .9,
         borderWidth: 1,
         marginHorizontal: 10,
-        flexDirection: "row",
-        justifyContent: "flex-start",
         padding: 10,
     }, innerTextDate: {
         flex: .9,
@@ -83,15 +84,12 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
     },
-    innerTextReporter: {
-    flex: .9,
-        borderWidth: 1,
-        marginHorizontal: 10,
-        justifyContent: "flex-end",
-},
-    text: {
+    dateText: {
         fontSize: 14,
         textAlign: "center",
+    },
+    text: {
+        fontSize: 14,
     },
     label: {
         fontSize: 14,
@@ -99,13 +97,34 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     inner: {
-        flex: .2,
+        flex: 1,
     },
     backButton: {
         borderRadius: 5,
         paddingHorizontal: 10,
-        margin: 10
+        marginTop: 15,
+        marginLeft: 15
     },
+    btn: {
+        marginTop: 15,
+        paddingTop: 20,
+        paddingRight: 30,
+        paddingBottom: 20,
+        paddingLeft: 30,
+        borderRadius: 5,
+        width: '95%',
+        backgroundColor: '#ff3b30',
+    },
+    btnText: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
+    contactReport: {
+        alignItems: "center",
+        gap: 10,
+
+    }
 });
 
 export default SightingsView;
