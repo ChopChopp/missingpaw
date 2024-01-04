@@ -79,7 +79,10 @@ const Sightings: React.FC<SightingsProps> = ({userData}) => {
                         )}
                     </ScrollView>
                 </>
-                : <SightingViewDetail sighting={sighting} toggleDetailedView={toggleDetailedView}/>}
+                : <>
+                    <ThemedText style={{fontSize: 24, fontWeight: "bold", textAlign: 'center'}}>Sighting details</ThemedText>
+                   <SightingViewDetail sighting={sighting} toggleDetailedView={toggleDetailedView}/>
+                </>}
         </SafeAreaView>
     );
 }

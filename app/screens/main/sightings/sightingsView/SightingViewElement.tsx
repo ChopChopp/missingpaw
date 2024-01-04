@@ -16,7 +16,7 @@ const SightingsView = ({sighting, toggleDetailedView}: any) => {
 
     return (
         <TouchableOpacity
-            style={[styles.container, {borderColor: theme.border, backgroundColor: theme.backgroundModern}]}
+            style={[styles.container, {borderColor: theme.border, backgroundColor: theme.backgroundLight}]}
             onPress={() => toggleDetailedView(sighting)}>
             <ThemedText style={styles.innerText}>{date}</ThemedText>
 
@@ -51,7 +51,8 @@ const SightingsView = ({sighting, toggleDetailedView}: any) => {
 const styles = StyleSheet.create({
     container: {
         borderStyle: "solid",
-        borderWidth: 1,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
         marginVertical: 10,
     },
     text: {
