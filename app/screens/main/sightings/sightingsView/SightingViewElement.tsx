@@ -1,10 +1,10 @@
 import React from "react";
-import {StyleSheet, useColorScheme, View,} from "react-native";
+import {StyleSheet, TouchableOpacity, useColorScheme, View,} from "react-native";
 import ThemedText from "../../../../helper/themedComponents/themedText/ThemedText";
 import {DarkTheme, LightTheme} from "../../../../helper/theme/Theme";
 
-const SightingsView = ({sighting}: any) => {
-    const separatorColor = useColorScheme() === 'dark' ? DarkTheme.colors.secondary : LightTheme.colors.secondary;
+const SightingsView = ({sighting, toggleDetailedView}: any) => {
+    const theme = useColorScheme() === 'dark' ? DarkTheme.colors : LightTheme.colors;
 
     const date = new Date(sighting.date).toLocaleString('de-CH', {
         year: 'numeric',
@@ -15,10 +15,12 @@ const SightingsView = ({sighting}: any) => {
     })
 
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            style={[styles.container, {borderColor: theme.border, backgroundColor: theme.backgroundModern}]}
+            onPress={() => toggleDetailedView(sighting)}>
             <ThemedText style={styles.innerText}>{date}</ThemedText>
 
-            <View style={[styles.underline, {backgroundColor: separatorColor}]}/>
+            <View style={[styles.underline, {backgroundColor: theme.secondary}]}/>
 
             <View style={styles.inner}>
                 <ThemedText style={styles.label}>Location</ThemedText>
@@ -26,7 +28,7 @@ const SightingsView = ({sighting}: any) => {
                             style={styles.text}>{sighting.location}</ThemedText>
             </View>
 
-            <View style={[styles.underline, {backgroundColor: separatorColor}]}/>
+            <View style={[styles.underline, {backgroundColor: theme.secondary}]}/>
 
             <View style={styles.inner}>
                 <ThemedText style={styles.label}>Description</ThemedText>
@@ -34,14 +36,14 @@ const SightingsView = ({sighting}: any) => {
                             style={styles.text}>{sighting.description}</ThemedText>
             </View>
 
-            <View style={[styles.underline, {backgroundColor: separatorColor}]}/>
+            <View style={[styles.underline, {backgroundColor: theme.secondary}]}/>
 
             <View style={styles.inner}>
                 <ThemedText style={styles.label}>Reporter</ThemedText>
                 <ThemedText selectable ellipsizeMode={'tail'} numberOfLines={2}
                             style={styles.text}>{sighting.reporter}</ThemedText>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 
 }
@@ -50,8 +52,6 @@ const styles = StyleSheet.create({
     container: {
         borderStyle: "solid",
         borderWidth: 1,
-        borderColor: "#3a3a3c",
-        backgroundColor: "#1c1c1e",
         marginVertical: 10,
     },
     text: {
