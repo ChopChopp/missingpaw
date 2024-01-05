@@ -18,6 +18,7 @@ const SightingsView = ({sighting, toggleDetailedView}: any) => {
         <TouchableOpacity
             style={[styles.container, {borderColor: theme.border, backgroundColor: theme.backgroundLight}]}
             onPress={() => toggleDetailedView(sighting)}>
+            {!sighting.seen && <View style={styles.notification}/>}
             <ThemedText style={styles.innerText}>{date}</ThemedText>
 
             <View style={[styles.underline, {backgroundColor: theme.secondary}]}/>
@@ -78,6 +79,15 @@ const styles = StyleSheet.create({
         width: '95%',
         alignSelf: 'center',
     },
+    notification: {
+        position: "absolute",
+        top: 10,
+        right: 10,
+        backgroundColor: "red",
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+    }
 });
 
 export default SightingsView;

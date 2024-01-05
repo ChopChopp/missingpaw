@@ -35,6 +35,9 @@ const Sightings: React.FC<SightingsProps> = ({userData}) => {
     const [loading, setLoading] = useState(false);
 
     const handleNotification = (sighting: Sighting) => {
+        console.log("handleNotification" + sighting.reporter);
+        // console.log("handleNotification", sighting);
+        // console.log("setting seen to true")
         // const updates: any = {};
         // updates["users/" + userData.id + "/pet/0/sightings"] = 0;
         //
@@ -50,9 +53,9 @@ const Sightings: React.FC<SightingsProps> = ({userData}) => {
     }
 
     const toggleDetailedView = (sighting: Sighting) => {
-        console.log("clicked")
         setShowDetailedView(!showDetailedView);
         setSighting(sighting);
+        sighting !== undefined && !sighting.seen && handleNotification(sighting);
     }
 
     return (
@@ -65,7 +68,6 @@ const Sightings: React.FC<SightingsProps> = ({userData}) => {
                             Object.keys(userData.pet[0].sightings).map((key: any) => userData.pet[0].sightings?.[key])
                                 .filter((sighting: any) => sighting !== null) // Filter out null values
                                 .map((sighting: any) => {
-                                    handleNotification(sighting);
                                     return (
                                         <SightingsView
                                             key={sighting.id}
