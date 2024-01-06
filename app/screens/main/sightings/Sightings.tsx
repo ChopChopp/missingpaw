@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Alert, SafeAreaView, ScrollView, StyleSheet} from "react-native";
 import SightingsView from "./sightingsView/SightingViewElement";
 import ThemedText from "../../../helper/themedComponents/themedText/ThemedText";
@@ -24,32 +24,27 @@ interface UserData {
     id: string;
 }
 
-interface SightingsProps {
-    userData: UserData;
+interface FetchUserData {
+    (id: any): void;
 }
 
-const Sightings: React.FC<SightingsProps> = ({userData}) => {
+interface SightingsProps {
+    userData: UserData;
+    fetchUserData: FetchUserData;
+}
+
+const Sightings: React.FC<SightingsProps> = ({userData, fetchUserData}) => {
 
     const [showDetailedView, setShowDetailedView] = useState(false);
     const [sighting, setSighting] = useState<Sighting | null>(null);
-    const [loading, setLoading] = useState(false);
 
     const handleNotification = (sighting: Sighting) => {
-        console.log("handleNotification" + sighting.reporter);
-        // console.log("handleNotification", sighting);
-        // console.log("setting seen to true")
-        // const updates: any = {};
-        // updates["users/" + userData.id + "/pet/0/sightings"] = 0;
-        //
-        // update(ref(FIREBASE_DATABASE), updates).then(() => {
-        //     checkForPets();
-        //     Alert.alert("Found", "Your pet has been marked as found.\n\nOther people in your area are no longer able to see your pet in their timeline.")
-        //     setLoading(false)
-        // }).catch((error) => {
-        //     Alert.alert("Error", "Failed to update pet object:\n\n" + error)
-        //     console.error("Failed to update pet object:", error);
-        //     setLoading(false)
-        // });
+        const updates = {[`users/${userData.id}/pet/0/sightings/${sighting.id}/seen`]: true};
+        update(ref(FIREBASE_DATABASE), updates).then(() => {
+            fetchUserData(userData.id);
+        }).catch((error) => {
+            Alert.alert("Failed to read notification: ", error);
+        });
     }
 
     const toggleDetailedView = (sighting: Sighting) => {
@@ -82,8 +77,9 @@ const Sightings: React.FC<SightingsProps> = ({userData}) => {
                     </ScrollView>
                 </>
                 : <>
-                    <ThemedText style={{fontSize: 24, fontWeight: "bold", textAlign: 'center'}}>Sighting details</ThemedText>
-                   <SightingViewDetail sighting={sighting} toggleDetailedView={toggleDetailedView}/>
+                    <ThemedText style={{fontSize: 24, fontWeight: "bold", textAlign: 'center'}}>Sighting
+                        details</ThemedText>
+                    <SightingViewDetail sighting={sighting} toggleDetailedView={toggleDetailedView}/>
                 </>}
         </SafeAreaView>
     );

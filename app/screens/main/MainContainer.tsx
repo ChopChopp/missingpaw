@@ -49,7 +49,7 @@ export const MainContainer = ({userData, fetchUserData}: any) => {
                 {(props) => <Home {...props} userData={userData} fetchUserData={fetchUserData}/>}
             </Tab.Screen>
             <Tab.Screen name={sightingsName} key={sightingsName}>
-                {(props) => <Sightings {...props} userData={userData} />}
+                {(props) => <Sightings {...props} userData={userData} fetchUserData={fetchUserData} />}
             </Tab.Screen>
             <Tab.Screen name={settingsName} key={settingsName}>
                 {(props) => <Settings {...props} userData={userData}/>}
