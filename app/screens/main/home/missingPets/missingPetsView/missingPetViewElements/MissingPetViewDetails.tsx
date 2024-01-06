@@ -1,18 +1,19 @@
 import React from "react";
-import {StyleSheet, useWindowDimensions, View} from "react-native";
+import {ScrollView, StyleSheet, useWindowDimensions, View} from "react-native";
 import ThemedText from "../../../../../../helper/themedComponents/themedText/ThemedText";
 import Dog from "../../../../../../helper/icons/Dog";
 import Color from "../../../../../../helper/icons/Color";
 import Breed from "../../../../../../helper/icons/Breed";
 import DogTag from "../../../../../../helper/icons/DogTag";
 import Paw from "../../../../../../helper/icons/Paw";
+import MapPin from "../../../../../../helper/icons/MapPin";
 
-const PetViewItem = ({item}: any) => {
+const MissingPetViewItem = ({item}: any) => {
     const {width} = useWindowDimensions();
 
     return (
         <View style={[styles.container, {width}]}>
-            <View style={styles.petDetails}>
+            <ScrollView style={styles.petDetails} contentContainerStyle={styles.petDetailsInner}>
 
                 <View style={styles.header}>
                     <ThemedText style={styles.subTitle}>Pet details</ThemedText>
@@ -47,7 +48,13 @@ const PetViewItem = ({item}: any) => {
                     <ThemedText style={styles.key}>Type: </ThemedText>
                     <ThemedText style={styles.value}>{item.type}</ThemedText>
                 </View>
-            </View>
+
+                <View style={styles.petDetailsElement}>
+                    <MapPin style={styles.icon}/>
+                    <ThemedText style={styles.key}>Location: </ThemedText>
+                    <ThemedText style={styles.value}>{item.missingLocation}</ThemedText>
+                </View>
+            </ScrollView>
         </View>
     );
 };
@@ -84,6 +91,8 @@ const styles = StyleSheet.create({
         height: '87%',
         marginTop: 55,
         borderRadius: 6,
+    },
+    petDetailsInner: {
         justifyContent: "flex-start",
     },
     petDetailsElement: {
@@ -105,4 +114,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PetViewItem;
+export default MissingPetViewItem;
