@@ -39,6 +39,7 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                     setLoading(true)
                     updates["users/" + userData.id + "/pet/0/missing"] = false;
                     updates["users/" + userData.id + "/pet/0/missingSince"] = 0;
+                    updates["users/" + userData.id + "/pet/0/missingLocation"] = "";
 
                     update(ref(FIREBASE_DATABASE), updates).then(() => {
                         checkForPets();
@@ -51,23 +52,35 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                     });
                 }
             }]) :
-            Alert.prompt("Report missing", "Are you sure you want to report your pet as missing?\n\nPet details will be posted publicly.\n\nOther people will be able to aid you with your search.\n\nType \"Missing\" to confirm.",
+            Alert.prompt(
+                "Report missing (1/2)",
+                "Are you sure you want to report your pet as missing?\n\nPet details will be posted publicly.\n\nOther people will be able to aid you with your search.\n\nType \"Missing\" to confirm.",
                 (event) => {
                     if (event === "Missing") {
-                        setLoading(true)
-                        updates["users/" + userData.id + "/pet/0/missing"] = true;
-                        updates["users/" + userData.id + "/pet/0/missingSince"] = new Date().getTime();
+                        Alert.prompt(
+                            "Report missing (2/2)",
+                            "Where did your pet go missing?\n\nOther people will be able to see this information.",
+                            (locationPrompt) => {
+                                if (locationPrompt !== "") {
+                                    setLoading(true)
+                                    updates["users/" + userData.id + "/pet/0/missing"] = true;
+                                    updates["users/" + userData.id + "/pet/0/missingSince"] = new Date().getTime();
+                                    updates["users/" + userData.id + "/pet/0/missingLocation"] = locationPrompt;
 
-                        update(ref(FIREBASE_DATABASE), updates).then(() => {
-                            checkForPets();
-                            Alert.alert("Reported", "Your pet has been reported as missing.\n\nOther people in your area will be able to see your pet in their timeline.")
-                            setLoading(false)
-                        }).catch((error) => {
-                            Alert.alert("Error", "Failed to update pet object:\n\n" + error)
-                            console.error("Failed to update pet object:", error);
-                            setLoading(false)
-                        });
-
+                                    update(ref(FIREBASE_DATABASE), updates).then(() => {
+                                        checkForPets();
+                                        Alert.alert("Reported", "Your pet has been reported as missing.\n\nOther people in your area will be able to see your pet in their timeline.")
+                                        setLoading(false)
+                                    }).catch((error) => {
+                                        Alert.alert("Error", "Failed to update pet object:\n\n" + error)
+                                        console.error("Failed to update pet object:", error);
+                                        setLoading(false)
+                                    });
+                                } else {
+                                    Alert.alert("No location", "Please enter a valid location.")
+                                }
+                            },
+                        )
                     } else {
                         Alert.alert("Mistyped", "Your pet has not been reported as missing.")
                     }
@@ -100,7 +113,7 @@ const PetView = ({pet, userData, checkForPets}: any) => {
                           ref={slidesRef}
                 />
             </View>
-            <Paginator scrollX={scrollX} height={64} margin={0} />
+            <Paginator scrollX={scrollX} height={64} margin={0}/>
             {loading && <ActivityIndicator size="small" color="#0000ff"/>}
             <TouchableOpacity style={[styles.btn, pet[0].missing ? styles.btnPetSave : styles.btnReportMissing]}
                               onPress={handleMissing}>
