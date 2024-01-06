@@ -38,7 +38,7 @@ const SightingsView = ({sighting, toggleDetailedView}: any) => {
                 </ScrollView>
             </View>
 
-            <View style={styles.inner}>
+            <View style={[styles.inner, {marginTop: 10}]}>
                 <ThemedText style={styles.label}>Description</ThemedText>
                 <ScrollView style={[styles.innerText, {borderColor: theme.border}]}>
 
