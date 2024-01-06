@@ -8,6 +8,7 @@ import {get, ref} from "firebase/database";
 import {Alert, Appearance} from 'react-native';
 import {FIREBASE_AUTH, FIREBASE_DATABASE} from "./FirebaseConfig";
 import {DarkTheme, LightTheme} from "./app/helper/theme/Theme";
+import {usePushNotifications} from "./app/helper/push/usePushNotifications";
 
 const Stack = createNativeStackNavigator();
 const InsideStack = createNativeStackNavigator();
