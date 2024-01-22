@@ -69,14 +69,10 @@ const YourPet = ({userData, fetchUserData}: any) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection:
-            "column",
-        alignItems:
-            'center',
-        justifyContent:
-            "center",
-    }
-    ,
+        flexDirection: "column",
+        alignItems: 'center',
+        justifyContent: "center",
+    },
     button: {
         paddingHorizontal: 10,
         marginHorizontal:
