@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Alert, SafeAreaView, ScrollView, StyleSheet} from "react-native";
+import {Alert, SafeAreaView, ScrollView, StyleSheet, View} from "react-native";
 import SightingsView from "./sightingsView/SightingViewElement";
 import ThemedText from "../../../helper/themedComponents/themedText/ThemedText";
 import {ref, update} from "firebase/database";
@@ -72,13 +72,16 @@ const Sightings: React.FC<SightingsProps> = ({userData, fetchUserData}) => {
                                     );
                                 })
                         ) : (
-                            <ThemedText>{userData?.pet ? 'You have no sightings reported' : 'You have no pet'}</ThemedText>
+                            <View style={styles.noPetsContainer}>
+                                <ThemedText>{userData?.pet ? 'You have no sightings reported' : 'You have no pet'}</ThemedText>
+                            </View>
                         )}
                     </ScrollView>
                 </>
                 : <>
-                    <ThemedText style={{fontSize: 24, fontWeight: "bold", textAlign: 'center'}}>Sighting
-                        details</ThemedText>
+                    <ThemedText style={{fontSize: 24, fontWeight: "bold", textAlign: 'center'}}>
+                        Sighting details
+                    </ThemedText>
                     <SightingViewDetail sighting={sighting} toggleDetailedView={toggleDetailedView}/>
                 </>}
         </SafeAreaView>
@@ -89,7 +92,10 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-
+    noPetsContainer: {
+        display: 'flex',
+        alignItems: 'center',
+    }
 });
 
 export default Sightings;
