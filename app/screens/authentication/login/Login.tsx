@@ -9,7 +9,7 @@ import {
     Button,
     TextInput,
     StyleSheet,
-    ActivityIndicator, Alert, useColorScheme,
+    ActivityIndicator, useColorScheme,
 } from "react-native";
 import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 
@@ -27,9 +27,9 @@ const Login = ({fetchUserData}: any) => {
         try {
             const response = await signInWithEmailAndPassword(auth, email, password);
             fetchUserData(response.user.uid);
-            Alert.alert("Success", "Logged in successfully!");
+            console.info("Logged in successfully for user " + response.user.uid);
         } catch (error: any) {
-            Alert.alert("Failure", "Sign in  failed: " + error);
+            console.error("Failure", "Sign in  failed: " + error);
         } finally {
             setLoading(false);
         }
