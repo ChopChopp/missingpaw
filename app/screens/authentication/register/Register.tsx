@@ -53,10 +53,10 @@ const Register = ({fetchUserData}: any) => {
             await set(userRef, userData);
             fetchUserData(uid);
 
-            alert("User created and data saved!");
+            console.info("User created and data saved!");
 
         } catch (error: any) {
-            alert("Sign up  failed: " + error);
+            console.error("Sign up  failed: " + error);
         } finally {
             setLoading(false);
         }
