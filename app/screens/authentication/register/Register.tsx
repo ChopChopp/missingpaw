@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 
-const Register = ({fetchUserData}: any) => {
+const Register = () => {
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
     const auth = FIREBASE_AUTH;
 
@@ -51,10 +51,6 @@ const Register = ({fetchUserData}: any) => {
 
             const userRef = ref(FIREBASE_DATABASE, "users/" + uid);
             await set(userRef, userData);
-            fetchUserData(uid);
-
-            console.info("User created and data saved!");
-
         } catch (error: any) {
             console.error("Sign up  failed: " + error);
         } finally {

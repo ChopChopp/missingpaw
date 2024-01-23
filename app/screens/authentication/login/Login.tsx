@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import {DarkTheme, LightTheme} from "../../../helper/theme/Theme";
 
-const Login = ({fetchUserData}: any) => {
+const Login = () => {
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
 
     const [email, setEmail] = useState("");
@@ -26,7 +26,6 @@ const Login = ({fetchUserData}: any) => {
         setLoading(true);
         try {
             const response = await signInWithEmailAndPassword(auth, email, password);
-            fetchUserData(response.user.uid);
             console.info("Logged in successfully for user " + response.user.uid);
         } catch (error: any) {
             console.error("Failure", "Sign in  failed: " + error);

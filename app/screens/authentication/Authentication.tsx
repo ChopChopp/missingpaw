@@ -6,7 +6,7 @@ import {DarkTheme, LightTheme} from "../../helper/theme/Theme";
 import TermsAndConditions from "./termsAndConditions/TermsAndConditions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const Authentication = ({fetchUserData}: any) => {
+const Authentication = () => {
     const textColor = useColorScheme() === 'dark' ? DarkTheme.colors.text : LightTheme.colors.text;
     const [showRegister, setShowRegister] = useState(true);
     const [accepted, setAccepted] = useState(false);
@@ -44,7 +44,7 @@ const Authentication = ({fetchUserData}: any) => {
                 :
                 <>
                     <Text style={[styles.title, {color: textColor}]}>Missing Paw</Text>
-                    {showRegister ? <Register fetchUserData={fetchUserData}/> : <Login fetchUserData={fetchUserData}/>}
+                    {showRegister ? <Register/> : <Login/>}
                     <Button
                         title={showRegister ? "Switch to Login" : "Switch to Register"}
                         onPress={() => setShowRegister(!showRegister)}
