@@ -17,7 +17,7 @@ export const MainContainer = ({userData, fetchUserData}: any) => {
     return (
         <Tab.Navigator
             initialRouteName={homeName}
-            screenOptions={({route}) => ({
+            screenOptions={({route}: any) => ({
                 headerShown: false,
                 tabBarIcon: ({focused}: {
                     focused: boolean;
@@ -46,13 +46,13 @@ export const MainContainer = ({userData, fetchUserData}: any) => {
             })}
         >
             <Tab.Screen name={homeName} key={homeName}>
-                {(props) => <Home {...props} userData={userData} fetchUserData={fetchUserData}/>}
+                {(props: any) => <Home {...props} userData={userData} fetchUserData={fetchUserData}/>}
             </Tab.Screen>
             <Tab.Screen name={sightingsName} key={sightingsName}>
-                {(props) => <Sightings {...props} userData={userData} fetchUserData={fetchUserData} />}
+                {(props: any) => <Sightings {...props} userData={userData} fetchUserData={fetchUserData} />}
             </Tab.Screen>
             <Tab.Screen name={settingsName} key={settingsName}>
-                {(props) => <Settings {...props} userData={userData}/>}
+                {(props: any) => <Settings {...props} userData={userData}/>}
             </Tab.Screen>
         </Tab.Navigator>
     );

@@ -17,7 +17,7 @@ const InsideLayout = ({userData, fetchUserData}: any) => {
         <InsideStack.Navigator screenOptions={{headerShown: false}}>
             <InsideStack.Screen
                 name="Main"
-                children={(props) => <MainContainer {...props} userData={userData} fetchUserData={fetchUserData}/>}
+                children={(props: any) => <MainContainer {...props} userData={userData} fetchUserData={fetchUserData}/>}
             />
         </InsideStack.Navigator>
     );
@@ -67,7 +67,7 @@ const App = () => {
     }, []);
 
     useEffect(() => {
-        onAuthStateChanged(FIREBASE_AUTH, (user) => {
+        onAuthStateChanged(FIREBASE_AUTH, (user: any) => {
             setUser(user);
             user === null ? setUserData(null) : fetchUserData(user.uid);
         });
@@ -81,7 +81,7 @@ const App = () => {
                         name="Home"
                         options={{headerShown: false}}
                     >
-                        {(props) => <InsideLayout {...props} userData={userData} fetchUserData={fetchUserData}/>}
+                        {(props: any) => <InsideLayout {...props} userData={userData} fetchUserData={fetchUserData}/>}
                     </Stack.Screen>
 
                 ) : (

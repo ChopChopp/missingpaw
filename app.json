@@ -17,45 +17,20 @@
     "ios": {
       "supportsTablet": true,
       "userInterfaceStyle": "automatic",
-      "bundleIdentifier": "com.missingpaw",
-      "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Select and upload images.",
-        "NSCameraUsageDescription": "Allow MissingPaw to access your camera."
-      }
+      "bundleIdentifier": "com.missingpaw"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "userInterfaceStyle": "automatic",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "useFrameworks": "static"
-          }
-        }
-      ],
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "Select and upload images.",
-          "cameraPermission": "Allow MissingPaw to access your camera."
-        }
-      ]
-    ],
     "extra": {
       "eas": {
-        "projectId": "2128ee39-e095-4856-956d-2f6fa1f21d75"
+        "projectId": "bc52d394-cad7-464b-b2a1-7e5a8e2b06c4"
       }
     }
   }
