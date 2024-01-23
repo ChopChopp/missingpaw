@@ -3,12 +3,6 @@
 # dependencies
 node_modules/
 
-# package-lock
-package-lock.json
-
-# idea
-.idea/
-
 # Expo
 .expo/
 dist/

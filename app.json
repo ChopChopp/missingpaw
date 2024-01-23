@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "missing-paw",
-    "slug": "missing-paw",
-    "version": "1.0",
+    "name": "missingpaw",
+    "slug": "missingpaw",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -17,7 +17,11 @@
     "ios": {
       "supportsTablet": true,
       "userInterfaceStyle": "automatic",
-      "bundleIdentifier": "com.missingpaw"
+      "bundleIdentifier": "com.missingpaw",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Select and upload images.",
+        "NSCameraUsageDescription": "Allow MissingPaw to access your camera."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -51,7 +55,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "d2cc37a4-29a6-473b-b87b-19012e65fc0c"
+        "projectId": "2128ee39-e095-4856-956d-2f6fa1f21d75"
       }
     }
   }

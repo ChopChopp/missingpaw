@@ -1,5 +1,4 @@
 import {initializeApp} from "firebase/app";
-import {getAnalytics, isSupported} from "firebase/analytics";
 import {getAuth} from "firebase/auth";
 import {getDatabase} from "firebase/database";
 import {initializeAuth, getReactNativePersistence} from 'firebase/auth';
@@ -19,7 +18,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const FIREBASE_APP = initializeApp(firebaseConfig,);
-const analytics = isSupported().then(yes => yes ? getAnalytics(FIREBASE_APP) : null);
 
 // Create a root reference.
 export const STORAGE = getStorage();
