@@ -17,7 +17,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const FIREBASE_APP = initializeApp(firebaseConfig,);
+export const FIREBASE_APP = initializeApp(firebaseConfig);
 
 // Create a root reference.
 export const STORAGE = getStorage();
