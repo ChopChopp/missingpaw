@@ -52,6 +52,7 @@ const Register = () => {
             const userRef = ref(FIREBASE_DATABASE, "users/" + uid);
             await set(userRef, userData);
         } catch (error: any) {
+            alert("Sign up  failed: " + error);
             console.error("Sign up  failed: " + error);
         } finally {
             setLoading(false);

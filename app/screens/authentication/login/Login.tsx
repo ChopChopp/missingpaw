@@ -28,6 +28,7 @@ const Login = () => {
             const response = await signInWithEmailAndPassword(auth, email, password);
             console.info("Logged in successfully for user " + response.user.uid);
         } catch (error: any) {
+            alert("Sign in  failed: " + error);
             console.error("Failure", "Sign in  failed: " + error);
         } finally {
             setLoading(false);
