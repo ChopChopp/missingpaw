@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {
     ActivityIndicator,
-    Alert,
+    Alert, ScrollView,
     StyleSheet,
     TextInput,
     TouchableOpacity,
@@ -149,7 +149,7 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
 
     return (
         <View style={[styles.container, {width}]}>
-            <View style={styles.petDetails}>
+            <ScrollView style={styles.petDetails}>
 
                 <View style={styles.header}>
                     <ThemedText style={styles.subTitle}>Pet details</ThemedText>
@@ -234,7 +234,7 @@ const PetViewItem = ({item, userData, checkForPets}: any) => {
                         </TouchableOpacity>
                     </View>}
 
-            </View>
+            </ScrollView>
         </View>
     );
 };
@@ -301,7 +301,6 @@ const styles = StyleSheet.create({
         height: '73.5%',
         marginTop: 50,
         borderRadius: 6,
-        justifyContent: "flex-start",
     },
     petDetailsElement: {
         flexDirection: "row",

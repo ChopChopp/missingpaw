@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         zIndex: 2,
     },
     image: {
-        width: '95%',
+        width: '80%',
         aspectRatio: 1,
         borderRadius: 10
     },
