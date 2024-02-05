@@ -13,10 +13,10 @@ import {FIREBASE_DATABASE} from "../../../../FirebaseConfig";
 import firebase from "firebase/compat";
 import EmailAuthProvider = firebase.auth.EmailAuthProvider;
 
-const auth = getAuth();
-const user = auth.currentUser;
-
 const Settings = ({userData}: any) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
     const [loading, setLoading] = useState(false);
     if (!userData) {
         return <ActivityIndicator size="large" color="#0000ff"/>;
