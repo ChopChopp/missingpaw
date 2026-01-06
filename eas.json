@@ -16,8 +16,8 @@
     "production": {
       "ios": {
         "appleId": "ozturk_umut02@hotmail.com",
-        "ascAppId": "6476522586",
-        "appleTeamId": "5D2LL9UV6Y"
+        "ascAppId": "*",
+        "appleTeamId": "*"
       }
     }
   }

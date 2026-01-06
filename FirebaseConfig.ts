@@ -6,14 +6,14 @@ import {getStorage} from "firebase/storage";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCy6RE6Y5zoFe5rHOkwOWpNAzUBfCypBZk",
-    authDomain: "missing-paw.firebaseapp.com",
-    databaseURL: "https://missing-paw-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "missing-paw",
-    storageBucket: "missing-paw.appspot.com",
-    messagingSenderId: "80490557072",
-    appId: "1:80490557072:web:1675414e46fc36f982f215",
-    measurementId: "G-HSP1BZC9WD"
+    apiKey: "*",
+    authDomain: "*",
+    databaseURL: "*",
+    projectId: "*",
+    storageBucket: "*",
+    messagingSenderId: "*",
+    appId: "*",
+    measurementId: "*"
 };
 
 // Initialize Firebase
